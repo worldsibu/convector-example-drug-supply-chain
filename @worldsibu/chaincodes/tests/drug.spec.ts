@@ -35,10 +35,7 @@ describe('Drug', () => {
   });
 
   it('should initialize a drug', async () => {
-    await drugCtrl.create(new Drug({
-      id: drugId,
-      name: 'Acetaminofen 500mg',
-    }));
+    await drugCtrl.create(drugId, 'Acetaminofen 500mg');
 
     const drug = await adapter.getById<Drug>(drugId);
 

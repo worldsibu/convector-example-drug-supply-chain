@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { HttpClient } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-drugs',
@@ -12,7 +13,7 @@ export class DrugsComponent implements OnInit {
 
   }
 
-  constructor() {
+  constructor(http: HttpClient) {
   }
 
 }

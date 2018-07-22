@@ -5,12 +5,17 @@ import * as express from 'express';
 import { Router } from 'express';
 import * as bodyParser from 'body-parser';
 import { DrugCtrl } from './controllers';
+import { BaseStorage } from '@worldsibu/convector-core-storage';
+import { CouchDBStorage } from '@worldsibu/convector-storage-couchdb';
 
 dotenv.config();
 
 const app: express.Application = express();
 const port = process.env.PORT || 10010;
 const config = { appRoot: __dirname };
+
+// Inject the CouchDB storage to the models to query directly from the World State.
+BaseStorage.current = new CouchDBStorage({}, 'ch1_drug');
 
 app.use(bodyParser.urlencoded({
   extended: true,

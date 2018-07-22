@@ -15,6 +15,5 @@
     "yup": "^0.26.0"
   },
   "devDependencies": {
-    "@types/yup": "^0.24.7"
   }
 }

@@ -5,9 +5,6 @@
     "rootDir": ".",
     "experimentalDecorators": true,
     "types": [
-      "node",
-      "lodash",
-      "express"
     ]
   },
   "include": [

@@ -8,8 +8,7 @@
         "ENABLE_HTTPS": true
       },
       "watch": [
-        "controllers",
-        "config",
+        "src",
         "app.js",
         ".env"
       ]

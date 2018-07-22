@@ -9,16 +9,21 @@ const router: Router = Router();
 /** Get all the drugs! */
 router.get('/', async (req: Request, res: Response) => {
   const channel = Helper.channel;
-  const dbName = channel + '_tellus';
-  const viewUrl = '_design/apiKeys/_view/all';
+  // _drug is equivalent to the name of your chaincode
+  // it gets generated on the world state
+  const dbName = channel + '_drug';
+  const viewUrl = '_design/drugs/_view/all';
 
+  console.log(`${dbName} ${viewUrl}`);
   const queryOptions = { startKey: [''], endKey: [''] };
 
   try {
+    console.log(Drug);
     const result = await Drug.query(Drug, dbName, viewUrl, queryOptions);
     console.log(result);
     res.send(await Promise.all(result.map(Models.formatDrug)));
   } catch (err) {
+    console.log(err);
     if (err.code === 'EDOCMISSING') {
       res.send([]);
     } else {
@@ -41,20 +46,12 @@ router.post('/:name', async (req: Request, res: Response) => {
 
   let result;
   const id = req.body.id || crypto.randomBytes(16).toString('hex');
-
-  console.log(id);
-  const drugObj = new Drug({
-    id,
-    name: req.body.name
-  });
   console.log('object built');
 
-  console.log(drugObj);
-
   try {
-    result = await DrugController.create(drugObj);
-    console.log(result);
-    res.send({ id: result });
+    result = await DrugController.create(id, name);
+
+    res.send({ id: id });
   } catch (err) {
     console.log('err');
     console.log(err);

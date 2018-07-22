@@ -12,7 +12,7 @@
  */
 import { DrugControllerClient } from '@worldsibu/convector-example-dsc-cc-drug/dist/client';
 import { FabricControllerAdapter } from '@worldsibu/convector-adapter-fabric';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { Helper } from './helper';
 
 /**
@@ -21,19 +21,20 @@ import { Helper } from './helper';
  */
 //
 // test
-const adapter = new FabricControllerAdapter(({
+const adapter = new FabricControllerAdapter({
   txTimeout: 10000,
   user: 'user1',
   channel: 'ch1',
-  chaincode: 'dsc',
-  version: '1.2',
+  chaincode: 'drug',
   // Go to your project's root
   // for the shared crypto objects
-  keyStore: join(__dirname, '../../.convector-dev-env/.hfc-org1'),
+  keyStore: resolve(__dirname, '../../../../.convector-dev-env/.hfc-org1'),
   // This has a soft link to the root of the project
   // For production, this file will point to another folder
-  networkProfile: join(__dirname, '../config/org1.network-profile.yaml')
-} as any));
+  networkProfile: resolve(__dirname, '../config/org1.network-profile.yaml')
+});
+
+console.log(resolve(__dirname, '../../../../.convector-dev-env/.hfc-org1'));
 
 adapter.init();
 

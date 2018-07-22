@@ -1,5 +1,5 @@
 {
-  "name": "@worldsibu/convector-example-dsc-cc",
+  "name": "@worldsibu/convector-example-dsc-chaincodes",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,9 +13,6 @@
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/mocha": "^5.2.5",
-    "@types/chai": "^4.1.4",
-    "@types/node": "^10.5.2",
     "chai": "^4.1.2",
     "@worldsibu/convector-adapter-mock": "1.1.5",
     "@worldsibu/convector-tool-chaincode-manager": "1.1.5",
