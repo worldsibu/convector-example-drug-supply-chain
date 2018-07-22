@@ -20,9 +20,11 @@ export class DrugControllerClient extends ConvectorController {
   
   public async create(
     
-    drug: Drug
+    id: string,
+    
+    name: string
   ) {
-    await this.adapter.invoke(this.name, 'create', drug);
+    await this.adapter.invoke(this.name, 'create', id, name);
   }
 
   

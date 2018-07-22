@@ -13,23 +13,24 @@ export class DrugController extends ConvectorController {
 
   @Invokable()
   public async create(
-    @Param(Drug)
-    drug: Drug
+    @Param(yup.string())
+    id: string,
+    @Param(yup.string())
+    name: string
   ) {
-    const exists = await Drug.getOne(drug.id);
+    const exists = await Drug.getOne(id);
 
-    if (exists.id === drug.id) {
+    if (exists.id === id) {
       throw new Error('There is already one drug with that unique id');
     }
 
+    let drug = new Drug(id);
+    drug.name = name;
     // Initialize the object!
     drug.createdBy = this.sender;
     drug.modifiedBy = this.sender;
     //drug.modified = drug.created;
     drug.holder = this.sender;
-
-    // Clean the shouldn't be set props
-    drug.reports = [];
 
     await drug.save();
   }

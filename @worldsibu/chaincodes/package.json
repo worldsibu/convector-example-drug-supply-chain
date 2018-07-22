@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "client:generate": "generate-controller-interface -c DrugController",
     "test": "lerna run build --scope @worldsibu/convector-example-dsc-cc-drug && mocha -r ts-node/register tests/*.spec.ts --reporter spec"
   },
   "author": "WorldSibu",
