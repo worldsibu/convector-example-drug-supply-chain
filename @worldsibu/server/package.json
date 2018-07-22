@@ -2,23 +2,30 @@
   "name": "@worldsibu/convector-example-dsc-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./dist/src/app.js",
   "private": true,
   "scripts": {
-    "start": "pm2-dev pm2.config.json",
+    "start": "npm run build && pm2-dev pm2.config.json",
     "start:daemon": "pm2 startOrRestart pm2.config.json",
-    "stop": "pm2 stop pm2.config.json"
+    "stop": "pm2 stop pm2.config.json",
+    "clean": "rimraf dist client",
+    "build": "npm run clean && tsc"
   },
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "dependencies": {
+    "@worldsibu/convector-example-dsc-cc-drug": "^1.0.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.5.2",
     "pm2": "^3.0.0",
+    "rimraf": "^2.6.2",
     "ts-node": "^7.0.0"
   }
 }

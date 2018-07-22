@@ -7,19 +7,18 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register tests/*.spec.ts --reporter spec"
+    "test": "lerna run build --scope @worldsibu/convector-example-dsc-cc-drug && mocha -r ts-node/register tests/*.spec.ts --reporter spec"
   },
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
+    "@types/chai": "^4.1.4",
     "@types/node": "^10.5.2",
+    "chai": "^4.1.2",
     "@worldsibu/convector-adapter-mock": "1.1.5",
     "@worldsibu/convector-tool-chaincode-manager": "1.1.5",
     "@worldsibu/convector-tool-dev-env": "1.1.5",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   }

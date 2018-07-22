@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "types": [
+      "node",
+      "lodash",
+      "express"
+    ]
   },
   "include": [
     "./src/**/*",

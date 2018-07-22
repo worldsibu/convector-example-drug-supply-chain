@@ -1,16 +1,14 @@
 // @ts-check
 
-const path = require('path');
-const dotenv = require('dotenv');
-const express = require('express');
-const bodyParser = require('body-parser');
-const Router = express.Router;
-
-const drugCtrl = require('./controllers/drug.controller');
+import * as dotenv from 'dotenv';
+import * as express from 'express';
+import { Router } from 'express';
+import * as bodyParser from 'body-parser';
+import { DrugCtrl } from './controllers';
 
 dotenv.config();
 
-const app = express();
+const app: express.Application = express();
 const port = process.env.PORT || 10010;
 const config = { appRoot: __dirname };
 
@@ -21,9 +19,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json({ limit: '40mb' }));
 
-app.listen(port, () =>
-  console.log('Running in port  %d', port));
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -31,10 +26,9 @@ app.use((req, res, next) => {
   next();
 });
 
-const router = Router();
+app.use('/drug', DrugCtrl);
 
-router.get
-
-app.use(router);
+app.listen(port, () =>
+  console.log('Running in port  %d', port));
 
 module.exports = app;

@@ -4,5 +4,18 @@
     "@worldsibu/*",
     "@worldsibu/*/*"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "command": {
+    "bootstrap": {
+      "hoist": true,
+      "nohoist": [
+        "d3-ng2-service",
+        "@types/jasminewd2",
+        "@types/jasmine",
+        "bootstrap",
+        "nvd3",
+        "font-awesome"
+      ]
+    }
+  }
 }
