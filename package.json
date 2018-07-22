@@ -1,0 +1,31 @@
+{
+  "name": "@worldsibu/convector-example-drug-supply-chain",
+  "version": "1.0.0",
+  "description": "A simple example to track drugs with Convector Framework.",
+  "main": "index.js",
+  "dependencies": {
+    "lerna": "^2.11.0"
+  },
+  "scripts": {
+    "lerna:test": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/convector/convector-example-drug-supply-chain.git"
+  },
+  "keywords": [
+    "convector",
+    "development",
+    "javascript",
+    "blockchain",
+    "smart",
+    "contracts"
+  ],
+  "author": "WorldSibu",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/convector/convector-example-drug-supply-chain/issues"
+  },
+  "homepage": "https://github.com/convector/convector-example-drug-supply-chain#readme",
+  "devDependencies": {}
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@worldsibu/convector-example-dsc-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "pm2-dev pm2.config.json",
+    "start:daemon": "pm2 startOrRestart pm2.config.json",
+    "stop": "pm2 stop pm2.config.json"
+  },
+  "author": "WorldSibu",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "pm2": "^3.0.0",
+    "ts-node": "^7.0.0"
+  }
+}
