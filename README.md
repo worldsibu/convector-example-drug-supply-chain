@@ -11,6 +11,7 @@ Some of the challenges on the field are:
 
 A somewhat typical value chain in this industry looks like:
 ![http://www.rmtminc.com/wp-content/uploads/2015/07/pharm_supply_chain-3.jpg](http://www.rmtminc.com/wp-content/uploads/2015/07/pharm_supply_chain-3.jpg)
+
 Took from: http://www.rmtminc.com/page/product-solutions/supply-chain-integrity.html
 
 
