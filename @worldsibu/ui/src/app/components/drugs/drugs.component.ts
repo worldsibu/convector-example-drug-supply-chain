@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-drugs',
@@ -9,11 +9,34 @@ import { HttpClient } from 'selenium-webdriver/http';
   ]
 })
 export class DrugsComponent implements OnInit {
-  ngOnInit(): void {
+  error = '';
+  items: any[];
 
+  constructor(private http: HttpClient) {
   }
 
-  constructor(http: HttpClient) {
+  ngOnInit(): void {
+    this._refresh();
+  }
+
+  refresh() {
+    this._refresh();
+  }
+
+  transfer(item) {
+    console.log(item);
+  }
+
+  _refresh() {
+    this.http.get('http://localhost:10100/drug/').subscribe((data) => {
+      for (let item of (data as any)) {
+        item.transfer = {};
+      }
+      this.items = (data as any);
+      console.log(this.items);
+    }, err => {
+      this.error = err;
+    });
   }
 
 }

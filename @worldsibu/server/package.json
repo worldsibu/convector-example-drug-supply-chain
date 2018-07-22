@@ -9,7 +9,7 @@
     "start:daemon": "pm2 startOrRestart pm2.config.json",
     "stop": "pm2 stop pm2.config.json",
     "clean": "rimraf dist client",
-    "build": "npm run clean && lerna bootstrap && tsc && cp -R ./src/config ./dist/"
+    "build": "npm run clean && tsc && cp -R ./src/config ./dist/"
   },
   "author": "WorldSibu",
   "license": "Apache-2.0",
