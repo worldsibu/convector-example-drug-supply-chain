@@ -16,7 +16,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-weight: 300;
+    font-weight: 300;
 }
 
 a {
@@ -25,5 +25,12 @@ a {
 }
 
 .btn.btn-primary {
+    border-color: #00a976;
     background: #0f1b26;
+}
+
+.btn.btn-primary:focus {
+    border-color: #0f1b26;
+    color: #0f1b26;
+    background: #00a976;
 }
