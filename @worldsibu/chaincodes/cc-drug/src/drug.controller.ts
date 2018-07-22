@@ -62,7 +62,7 @@ export class DrugController extends ConvectorController {
 
     // Update as modified
     drug.modifiedBy = this.sender;
-    drug.modified = drug.created;
+   // drug.modified = Date.now;
 
     await drug.save();
   }
