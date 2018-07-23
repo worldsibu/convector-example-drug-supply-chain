@@ -1,4 +1,3 @@
-// tslint:disable:no-unused-expression
 
 import { join } from 'path';
 import { expect } from 'chai';
