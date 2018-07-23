@@ -20,9 +20,11 @@ export class DrugControllerClient extends ConvectorController {
   
   public async create(
     
-    drug: Drug
+    id: string,
+    
+    name: string
   ) {
-    await this.adapter.invoke(this.name, 'create', drug);
+    await this.adapter.invoke(this.name, 'create', undefined, id, name);
   }
 
   
@@ -36,6 +38,6 @@ export class DrugControllerClient extends ConvectorController {
     
     reportUrl
   ) {
-    await this.adapter.invoke(this.name, 'transfer', drugId, to, reportHash, reportUrl);
+    await this.adapter.invoke(this.name, 'transfer', undefined, drugId, to, reportHash, reportUrl);
   }
 }

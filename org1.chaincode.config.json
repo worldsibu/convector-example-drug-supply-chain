@@ -1,0 +1,23 @@
+{
+  "user": "admin",
+  "txTimeout": 300000,
+  "channel": "ch1",
+  "keyStore": "./.convector-dev-env/.hfc-org1",
+  "networkProfile": "./.convector-dev-env/examples/org1.network-profile.yaml",
+  "controllers": [
+    {
+      "name": "@worldsibu/convector-example-dsc-cc-drug",
+      "version": "file:./@worldsibu/chaincodes/cc-drug",
+      "controller": "DrugController"
+    }
+  ],
+  "policy": {
+    "identities": [
+      { "role": { "name": "member", "mspId": "Org1MSP" }},
+      { "role": { "name": "member", "mspId": "Org2MSP" }}
+    ],
+    "policy": {
+      "1-of": [{ "signed-by": 0 }, { "signed-by": 1 }]
+    }
+  }
+}

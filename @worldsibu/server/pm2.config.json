@@ -2,15 +2,13 @@
   "apps" : [
     {
       "name": "Convector Example Drug Supply Chain API",
-      "script": "app.js",
+      "script": "./dist/app.js",
       "node_args": "--inspect=9231",
       "env": {
         "ENABLE_HTTPS": true
       },
       "watch": [
-        "api",
-        "config",
-        "app.js",
+        "src",
         ".env"
       ]
     }

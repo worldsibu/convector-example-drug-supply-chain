@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+body,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: 'Helvetica';
+    color: #0f1b26;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 300;
+}
+
+a {
+    color: #00a976;
+    text-decoration: underline;
+}
+
+.btn.btn-primary {
+    border-color: #00a976;
+    background: #0f1b26;
+}
+
+.btn.btn-primary:focus {
+    border-color: #0f1b26;
+    color: #0f1b26;
+    background: #00a976;
+}

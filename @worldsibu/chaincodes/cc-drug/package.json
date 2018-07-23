@@ -18,15 +18,12 @@
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "dependencies": {
-    "@worldsibu/convector-core-controller": "1.1.5",
-    "@worldsibu/convector-core-model": "1.1.5",
+    "@worldsibu/convector-core-controller": "1.1.6",
+    "@worldsibu/convector-core-model": "1.1.6",
     "reflect-metadata": "^0.1.12",
-    "uuid": "^3.3.2",
     "yup": "^0.26.0"
   },
   "devDependencies": {
-    "@types/node": "^10.5.2",
-    "@types/yup": "^0.24.7",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   }

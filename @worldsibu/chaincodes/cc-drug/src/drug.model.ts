@@ -20,16 +20,14 @@ export class Drug extends ConvectorModel<Drug> {
   public name: string;
 
   @Required()
-  @Validate(yup.date())
+  @Validate(yup.string())
   /** Current user owning the drug. */
   public holder: string;
 
-  @Required()
   @Validate(yup.array(Report))
   /** Current user owning the drug. */
   public reports: Array<Report>;
 
-  @Required()
   @Validate(yup.date())
   /** Date in which it was modified. */
   public modified: Date;

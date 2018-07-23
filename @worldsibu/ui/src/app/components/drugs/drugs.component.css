@@ -1,0 +1,48 @@
+.options {
+    border-radius: 6px;
+    border: solid 1px #ddd;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+.transfer {
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+.newItem {
+    animation: myfirst 3s 1;
+}
+
+.link {
+    text-decoration: underline !important;
+    cursor: pointer;
+    color: blue !important;
+}
+
+.holder {
+    font-weight: bold;
+    cursor: pointer;
+    border: solid 1px #eee;
+    padding: 2px 2px;
+}
+
+.holder:hover {
+    opacity: .8;
+}
+
+@keyframes myfirst {
+    0% {
+        background: #fff;
+    }
+    25% {
+        background: #f9ffdb;
+    }
+    75% {
+        background: #f9ffdb;
+    }
+    100% {
+        background: #fff;
+    }
+}

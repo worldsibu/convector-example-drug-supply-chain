@@ -4,5 +4,19 @@
     "@worldsibu/*",
     "@worldsibu/*/*"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "command": {
+    "bootstrap": {
+      "hoist": true,
+      "nohoist": [
+        "@types/jasminewd2",
+        "@types/jasmine",
+        "pm2",
+        "pm2-axon",
+        "pm2-axon-rpc",
+        "pm2-deploy",
+        "pm2-multimeter"
+      ]
+    }
+  }
 }
