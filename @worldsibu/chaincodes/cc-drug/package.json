@@ -18,8 +18,8 @@
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "dependencies": {
-    "@worldsibu/convector-core-controller": "1.1.5",
-    "@worldsibu/convector-core-model": "1.1.5",
+    "@worldsibu/convector-core-controller": "1.1.6",
+    "@worldsibu/convector-core-model": "1.1.6",
     "reflect-metadata": "^0.1.12",
     "yup": "^0.26.0"
   },

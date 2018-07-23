@@ -29,8 +29,11 @@ export class DrugController extends ConvectorController {
     // Initialize the object!
     drug.createdBy = this.sender;
     drug.modifiedBy = this.sender;
-    //drug.modified = drug.created;
     drug.holder = this.sender;
+
+    const now = new Date();
+    drug.created = now;
+    drug.modified = now;
 
     await drug.save();
   }
@@ -49,21 +52,28 @@ export class DrugController extends ConvectorController {
     const drug = await Drug.getOne(drugId);
 
     if (drug.holder !== this.sender) {
-      throw new Error('The sender is the only user capable of transferring the drug in the value chain.');
+      throw new Error('The current holder is the only user capable of transferring the drug in the value chain.');
     }
 
     // Change the holder.
     drug.holder = to;
 
     // Attach the report url. Since the user is the only responsible for the attachment, we don't check anything.
-    drug.reports.push({
+
+    const report = {
       url: reportUrl,
       hash: reportHash
-    });
+    };
+
+    if (drug.reports) {
+      drug.reports.push(report);
+    } else {
+      drug.reports = [report];
+    }
 
     // Update as modified
     drug.modifiedBy = this.sender;
-   // drug.modified = Date.now;
+    drug.modified = new Date();
 
     await drug.save();
   }

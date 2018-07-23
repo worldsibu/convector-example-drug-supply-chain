@@ -19,16 +19,18 @@ import { Helper } from './helper';
  * Building this adapter allows you to communicate with the
  * test env created by `convector-tool-dev-env`.
  */
-//
-// test
+
+const user = process.env.USERCERT || 'user1';
+const org = process.env.ORGCERT || 'org1';
+
 const adapter = new FabricControllerAdapter({
   txTimeout: 10000,
-  user: 'user1',
+  user: user,
   channel: 'ch1',
   chaincode: 'drug',
   // Go to your project's root
   // for the shared crypto objects
-  keyStore: resolve(__dirname, '../../../../.convector-dev-env/.hfc-org1'),
+  keyStore: resolve(__dirname, `../../../../.convector-dev-env/.hfc-${org}`),
   // This has a soft link to the root of the project
   // For production, this file will point to another folder
   networkProfile: resolve(__dirname, '../config/org1.network-profile.yaml')

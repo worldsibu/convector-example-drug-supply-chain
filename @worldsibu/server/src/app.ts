@@ -33,7 +33,11 @@ app.use((req, res, next) => {
 
 app.use('/drug', DrugCtrl);
 
+const user = process.env.USERCERT;
+const org = process.env.ORGCERT;
+
+console.log(org);
 app.listen(port, () =>
-  console.log('Running in port  %d', port));
+  console.log(`Running as ${org}:${user} in port ${port}`));
 
 module.exports = app;

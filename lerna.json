@@ -10,7 +10,12 @@
       "hoist": true,
       "nohoist": [
         "@types/jasminewd2",
-        "@types/jasmine"
+        "@types/jasmine",
+        "pm2",
+        "pm2-axon",
+        "pm2-axon-rpc",
+        "pm2-deploy",
+        "pm2-multimeter"
       ]
     }
   }

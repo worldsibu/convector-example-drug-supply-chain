@@ -30,12 +30,48 @@ The end result:
 ## Run the project
 
 Install dependencies:
-```
+```bash
 npm i
+```
+
+Wake up the environment and install the components.
+
+```bash
+# Start the development blockchain
+npm run env:restart
+# Install the chaincode
+npm run cc:start 1.0
+```
+
+Install the required compiled view 
+```bash
+npm run vw:install
 ```
 
 Run the project
 
+```bash
+# Start the server
+lerna run start --scope @worldsibu/convector-example-dsc-server --stream
+# Start the ui project
+lerna run start --scope @worldsibu/convector-example-dsc-ui --stream
 ```
-lerna run start --stream
+
+Go to `localhost:4200` and use the application!
+
+Since the "user" running the server is a blockchain identity coming from a certificate, to make it easy to switch between users you can use the scripts:
+
+```
+# Start the server as the first user of the org 1
+lerna run start:org1:user1 --scope @worldsibu/convector-example-dsc-server --stream
+# Start the server as the second user of the org 1
+lerna run start:org1:user2 --scope @worldsibu/convector-example-dsc-server --stream
+# Start the server as the third user of the org 1
+lerna run start:org1:user3 --scope @worldsibu/convector-example-dsc-server --stream
+# Start the server as the first user of the org 2
+lerna run start:org2:user1 --scope @worldsibu/convector-example-dsc-server --stream
+# Start the server as the second user of the org 2
+lerna run start:org2:user2 --scope @worldsibu/convector-example-dsc-server --stream
+# Start the server as the third user of the org 2
+lerna run start:org2:user3 --scope @worldsibu/convector-example-dsc-server --stream
 ```
