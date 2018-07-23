@@ -67,6 +67,8 @@ export class DrugsComponent implements OnInit {
       reportUrl: item.transfer.url
     }).subscribe(res => {
       item.holder = (res as any).holder;
+      item.transfer = {};
+      item.transferActive = false;
     }, err => {
       console.log(err);
       alert(err.error.responses[0].details)
