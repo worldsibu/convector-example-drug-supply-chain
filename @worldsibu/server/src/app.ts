@@ -11,7 +11,7 @@ import { CouchDBStorage } from '@worldsibu/convector-storage-couchdb';
 dotenv.config();
 
 const app: express.Application = express();
-const port = process.env.PORT || 10010;
+const port = process.env.PORT || 10100;
 const config = { appRoot: __dirname };
 
 // Inject the CouchDB storage to the models to query directly from the World State.
