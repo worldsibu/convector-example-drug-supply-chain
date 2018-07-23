@@ -14,9 +14,9 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^4.1.2",
-    "@worldsibu/convector-adapter-mock": "1.1.6",
-    "@worldsibu/convector-tool-chaincode-manager": "1.1.6",
-    "@worldsibu/convector-tool-dev-env": "1.1.6",
+    "@worldsibu/convector-adapter-mock": "1.1.7",
+    "@worldsibu/convector-tool-chaincode-manager": "1.1.7",
+    "@worldsibu/convector-tool-dev-env": "1.1.7",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   }

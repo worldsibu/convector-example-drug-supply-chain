@@ -20,8 +20,8 @@
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "dependencies": {
-    "@worldsibu/convector-adapter-fabric": "1.1.6",
-    "@worldsibu/convector-storage-couchdb": "1.1.6",
+    "@worldsibu/convector-adapter-fabric": "1.1.7",
+    "@worldsibu/convector-storage-couchdb": "1.1.7",
     "@worldsibu/convector-example-dsc-cc-drug": "^1.0.0",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
