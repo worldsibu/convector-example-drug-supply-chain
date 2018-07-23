@@ -8,7 +8,7 @@
   },
   "scripts": {
     "wait": "sleep 5",
-    "user:fingerprint": "f () { node -e \"console.log(JSON.parse(require('fs').readFileSync('./.hfc-$1/$2', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
+    "user:fingerprint": "f () { node -e \"console.log(JSON.parse(require('fs').readFileSync('./.convector-dev-env/.hfc-$1/$2', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
     "================= Life cycle =================": "==================================",
     "install": "npm-run-all -s lerna:install",
     "init": "npm-run-all -s env:init 'cc:start -- 1'",
@@ -36,7 +36,9 @@
     "cc:instantiate": "chaincode-manager --config ./org1.chaincode.config.json instantiate drug",
     "cc:upgrade": "chaincode-manager --config ./org1.chaincode.config.json upgrade drug",
     "cc:invoke": "f() { chaincode-manager --config ./$1.chaincode.config.json invoke drug ${@:2}; }; f",
-    "cc:upgradeInAll": "f() { npm-run-all -s cc:package \"cc:install -- org1 $1\" \"cc:install -- org2 $1\" \"cc:upgrade -- $1\"; }; f"
+    "cc:upgradeInAll": "f() { npm-run-all -s cc:package \"cc:install -- org1 $1\" \"cc:install -- org2 $1\" \"cc:upgrade -- $1\"; }; f",
+    "================= Views =================": "==================================",
+    "vw:install": "./@worldsibu/views/installViews.sh"
   },
   "repository": {
     "type": "git",
@@ -59,8 +61,8 @@
   "devDependencies": {
     "lerna": "^2.11.0",
     "npm-run-all": "^4.1.3",
-    "@worldsibu/convector-tool-chaincode-manager": "1.1.5",
-    "@worldsibu/convector-tool-dev-env": "1.1.5",
+    "@worldsibu/convector-tool-chaincode-manager": "1.1.6",
+    "@worldsibu/convector-tool-dev-env": "1.1.6",
     "@types/mocha": "^5.2.5",
     "@types/chai": "^4.1.4",
     "@types/node": "^10.5.2",
