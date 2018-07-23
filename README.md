@@ -34,6 +34,11 @@ Install dependencies:
 npm i
 ```
 
+Build the chaincode:
+```bash
+lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
+```
+
 Wake up the environment and install the components.
 
 ```bash
