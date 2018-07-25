@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/dist/src/drug.model';
+
 @Component({
   selector: 'app-drugs',
   templateUrl: './drugs.component.html',
@@ -10,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DrugsComponent implements OnInit {
   error = '';
-  items: any[];
+  items: Drug[];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
@@ -62,7 +64,7 @@ export class DrugsComponent implements OnInit {
     }).subscribe(data => {
       (data as any).class = 'newItem';
       (data as any).transfer = {};
-      this.items.push(data);
+      this.items.push(<Drug>data);
     },
       err => alert(err));
 
@@ -75,11 +77,11 @@ export class DrugsComponent implements OnInit {
 
   _refresh() {
     this.http.get('http://localhost:10100/drug/').subscribe((data) => {
-      for (let item of (data as any)) {
-        item.transfer = {};
+      for (let item of <Drug[]>(data as any)) {
+        (item as any).transfer = {};
       }
       this.items = (data as any);
-      console.log(this.items);
+      //console.log(this.items);
     }, err => {
       this.error = err;
     });
