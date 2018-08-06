@@ -80,3 +80,14 @@ lerna run start:org2:user2 --scope @worldsibu/convector-example-dsc-server --str
 # Start the server as the third user of the org 2
 lerna run start:org2:user3 --scope @worldsibu/convector-example-dsc-server --stream
 ```
+
+
+#### In case the server gives errors regarding 
+
+It's due to Babel's latest update. Temporarily there are no much solutions, but running this will fix the server for now (took from [here](https://forums.meteor.com/t/error-cannot-find-module-babel-runtime-helpers-builtin-interoprequiredefault/44944/4)):
+
+```
+mkdir $(pwd)/node_modules/@babel/runtime/helpers/builtin
+
+cp $(pwd)/node_modules/@babel/runtime/helpers/* $(pwd)/node_modules/@babel/runtime/helpers/builtin/
+```
