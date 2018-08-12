@@ -5,7 +5,7 @@
   "main": "./dist/src/app.js",
   "private": true,
   "scripts": {
-    "start": "npm run start",
+    "start": "pm2-runtime pm2.config.json",
     "start:org1:user1": "export USERCERT=user1 ORGCERT=org1 && npm run build && npm run start:daemon",
     "start:org1:user2": "export USERCERT=user2 ORGCERT=org1 && npm run build && npm run start:daemon",
     "start:org1:user3": "export USERCERT=user3 ORGCERT=org1 && npm run build && npm run start:daemon",
@@ -16,14 +16,14 @@
     "stop": "pm2 stop pm2.config.json",
     "clean": "rimraf dist client",
     "build": "npm run clean && tsc && cp -R ./src/config ./dist/",
-    "build:docker": "docker build -t worldsibu/forma-client-dev .",
+    "build:docker": "docker build -t worldsibu/convector-example-dsc .",
     "test": "mocha -r ts-node/register test/*.spec.ts --reporter spec"
   },
   "author": "WorldSibu",
   "license": "Apache-2.0",
   "dependencies": {
     "@worldsibu/convector-adapter-fabric": "1.1.8",
-    "@worldsibu/convector-example-dsc-cc-drug": "^1.0.0",
+    "@worldsibu/convector-example-dsc-cc-drug": "^2.1.0",
     "@worldsibu/convector-storage-couchdb": "1.1.8",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
