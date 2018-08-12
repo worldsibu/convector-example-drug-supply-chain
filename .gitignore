@@ -62,6 +62,7 @@ typings/
 
 
 dist/
+client/
 .convector-dev-env
 
 # Generated chaincode artifact
