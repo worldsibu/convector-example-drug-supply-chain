@@ -26,8 +26,6 @@
   },
   "devDependencies": {
     "ts-node": "7.0.0",
-    "typescript": "2.9.2",
-    "@worldsibu/convector-core-adapter": "1.1.8"
-  },
-  "gitHead": "cfa2638251a021a99ed24e423b4ecc0cc65fb7ea"
+    "typescript": "2.9.2"
+  }
 }
