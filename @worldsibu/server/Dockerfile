@@ -21,6 +21,6 @@ COPY dist ./dist
 
 EXPOSE 3000
 
-CMD [ "npm", "start:prod" ]
+CMD [ "npm", "start" ]
 
 RUN exit 0
