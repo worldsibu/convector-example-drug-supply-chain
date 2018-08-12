@@ -33,17 +33,17 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 
-router.get('/users', (req: Request, res: Response) => {
-  const list = [
-    { org: 'org1', user: 'user1', name: 'Manufacturer Acme', },
-    { org: 'org1', user: 'user2', name: 'Manufacturer W. White' },
-    { org: 'org1', user: 'user3', name: 'Manufacturer Gus' },
-    { org: 'org2', user: 'user1', name: 'Springfield General Hospital' },
-    { org: 'org2', user: 'user2', name: 'Arkham Asylum' },
-    { org: 'org2', user: 'user3', name: 'Mercy Hospital' }];
+// router.get('/users', (req: Request, res: Response) => {
+//   const list = [
+//     { org: 'org1', user: 'user1', name: 'Manufacturer Acme', },
+//     { org: 'org1', user: 'user2', name: 'Manufacturer W. White' },
+//     { org: 'org1', user: 'user3', name: 'Manufacturer Gus' },
+//     { org: 'org2', user: 'user1', name: 'Springfield General Hospital' },
+//     { org: 'org2', user: 'user2', name: 'Arkham Asylum' },
+//     { org: 'org2', user: 'user3', name: 'Mercy Hospital' }];
 
-  res.send(Users.GetUsers(list));
-});
+//   res.send(Users.GetUsers(list));
+// });
 
 /** Transfer the holder of the drug in the value chain. */
 router.post('/:id/transfer/', async (req: Request, res: Response) => {
