@@ -36,7 +36,15 @@ app.use('/drug', DrugCtrl);
 const user = process.env.USERCERT;
 const org = process.env.ORGCERT;
 
-console.log(org);
+console.log(`PORT=${process.env.PORT}`);
+console.log(`USERCERT=${process.env.USERCERT}`);
+console.log(`ORGCERT=${process.env.ORGCERT}`);
+console.log(`KEYSTORE=${process.env.KEYSTORE}`);
+console.log(`NETWORKPROFILE=${process.env.NETWORKPROFILE}`);
+console.log(`CHANNEL=${process.env.CHANNEL}`);
+console.log(`CHAINCODE=${process.env.CHAINCODE}`);
+console.log(`COUCHDBVIEW=${process.env.COUCHDBVIEW}`);
+
 app.listen(port, () =>
   console.log(`Running as ${org}:${user} in port ${port}`));
 
