@@ -26,17 +26,15 @@ const org = process.env.ORGCERT || 'org1';
 const adapter = new FabricControllerAdapter({
   txTimeout: 10000,
   user: user,
-  channel: 'ch1',
-  chaincode: 'drug',
+  channel: process.env.CHANNEL,
+  chaincode: process.env.CHAINCODE,
   // Go to your project's root
   // for the shared crypto objects
-  keyStore: resolve(__dirname, `../../../../.convector-dev-env/.hfc-${org}`),
+  keyStore: resolve(__dirname, process.env.KEYSTORE),
   // This has a soft link to the root of the project
   // For production, this file will point to another folder
-  networkProfile: resolve(__dirname, '../config/org1.network-profile.yaml')
+  networkProfile: resolve(__dirname,  process.env.NETWORKPROFILE)
 });
-
-console.log(resolve(__dirname, '../../../../.convector-dev-env/.hfc-org1'));
 
 adapter.init();
 

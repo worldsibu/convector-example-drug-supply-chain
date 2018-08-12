@@ -15,7 +15,7 @@ const port = process.env.PORT || 10100;
 const config = { appRoot: __dirname };
 
 // Inject the CouchDB storage to the models to query directly from the World State.
-BaseStorage.current = new CouchDBStorage({}, 'ch1_drug');
+BaseStorage.current = new CouchDBStorage({}, process.env.COUCHDBVIEW);
 
 app.use(bodyParser.urlencoded({
   extended: true,
