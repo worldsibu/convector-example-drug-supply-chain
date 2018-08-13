@@ -18,7 +18,9 @@
     "clean": "rimraf dist client",
     "build": "npm run clean && tsc && cp -R ./src/config ./dist/",
     "build:docker": "docker build -t worldsibu/convector-example-dsc .",
-    "test": "mocha -r ts-node/register test/*.spec.ts --reporter spec"
+    "build:docker:nocache": "docker build -t worldsibu/convector-example-dsc . --no-cache",
+    "test": "mocha -r ts-node/register test/*.spec.ts --reporter spec",
+    "userContext": "node -e 'let selfEnroll = require(\"./dist/selfGenContext.js\"); selfEnroll.SelfEnroll.getClient()'"
   },
   "author": "WorldSibu",
   "license": "Apache-2.0",

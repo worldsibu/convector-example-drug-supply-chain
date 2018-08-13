@@ -51,7 +51,8 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
   let { to, reportHash, reportUrl } = req.body;
 
   try {
-    let result = await DrugController.transfer(id, to, reportHash, reportUrl);
+    let cntrl = await DrugController.init();
+    let result = await cntrl.transfer(id, to, reportHash, reportUrl);
 
     const updatedDrug = await Drug.getOne(id);
     res.send(updatedDrug);
@@ -71,7 +72,8 @@ router.post('/', async (req: Request, res: Response) => {
   const fId = id || crypto.randomBytes(16).toString('hex');
 
   try {
-    result = await DrugController.create(id, name);
+    let cntrl = await DrugController.init();
+    result = await cntrl.create(id, name);
 
     const updatedDrug = await Drug.getOne(fId);
 

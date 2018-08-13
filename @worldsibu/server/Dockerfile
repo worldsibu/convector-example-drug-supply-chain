@@ -20,6 +20,7 @@ RUN npm rebuild
 COPY dist ./dist
 
 EXPOSE 3000
+EXPOSE 9222
 
 CMD [ "npm", "start" ]
 

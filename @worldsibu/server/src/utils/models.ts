@@ -1,4 +1,4 @@
-import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/src';
+import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/dist/src';
 import { BaseStorage } from '@worldsibu/convector-core-storage';
 import { CouchDBStorage } from '@worldsibu/convector-storage-couchdb';
 

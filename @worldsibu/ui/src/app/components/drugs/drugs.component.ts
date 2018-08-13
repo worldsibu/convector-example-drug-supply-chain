@@ -11,6 +11,7 @@ import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/dist/src/drug.mod
   ]
 })
 export class DrugsComponent implements OnInit {
+  server = 'http://localhost:7788';
   error = '';
   items: Drug[];
   // This could be dynamic since we can know what users
@@ -26,7 +27,7 @@ export class DrugsComponent implements OnInit {
   }
 
   _loadUsers() {
-    return this.http.get('http://localhost:10100/drug/users').toPromise();
+    return this.http.get(`${this.server}/drug/users`).toPromise();
   }
 
   refresh() {
@@ -59,7 +60,7 @@ export class DrugsComponent implements OnInit {
       return;
     }
 
-    this.http.post('http://localhost:10100/drug', {
+    this.http.post(`${this.server}/drug`, {
       id: id, name: name
     }).subscribe(data => {
       (data as any).class = 'newItem';
