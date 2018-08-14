@@ -9,6 +9,8 @@
       },
       "watch": [
         "src",
+        "dist",
+        "node_modules",
         ".env"
       ]
     }

@@ -33,26 +33,28 @@ export namespace DrugController {
       txTimeout: 10000,
       user: user,
       // set it later to enable Mutual TLS
-      channel: '',
+      channel: process.env.CHANNEL,
       chaincode: process.env.CHAINCODE,
       keyStore: resolve(__dirname, process.env.KEYSTORE),
       networkProfile: resolve(__dirname, process.env.NETWORKPROFILE),
-      skipInit: false
+      userMspPath: process.env.KEYSTORE
     });
+
+//ups something changed
 
     // adapter.client.getUserContext()
     // adapter.client.lo
     // get it dynamically
-    const privateKeyFile = fs.readdirSync(process.env.KEYSTORE + '/keystore')[0];
+    // const privateKeyFile = fs.readdirSync(process.env.KEYSTORE + '/keystore')[0];
 
-    let serverCert = fs.readFileSync(path.resolve(__dirname, `/data/${process.env.ORGCERT}-ca-chain.pem`));
-    let clientKey = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'keystore', privateKeyFile));
-    let clientCert = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'signcerts', 'cert.pem'));
+    // let serverCert = fs.readFileSync(path.resolve(__dirname, `/data/${process.env.ORGCERT}-ca-chain.pem`));
+    // let clientKey = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'keystore', privateKeyFile));
+    // let clientCert = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'signcerts', 'cert.pem'));
 
-    adapter.client.setTlsClientCertAndKey(Buffer.from(clientCert).toString(), Buffer.from(clientKey).toString());
-    let channel = await adapter.client.newChannel(process.env.CHANNEL);
+    // adapter.client.setTlsClientCertAndKey(Buffer.from(clientCert).toString(), Buffer.from(clientKey).toString());
+    // let channel = await adapter.client.newChannel(process.env.CHANNEL);
 
-    adapter.channel = channel;
+    // adapter.channel = channel;
     // let channel = await adapter.useChannel();
 
     // for (let peer of channel.getPeers()) {

@@ -1,0 +1,39 @@
+version: '3.2'
+
+networks:
+
+  net_worldsibu:
+    external:
+      name: net_worldsibu
+
+services:
+  worldbankdrugstrackerbackendXwl:
+    image: worldsibu/convector-example-dsc
+
+    ports:
+      - "7788:10100"
+      - "9090:9222"
+
+    environment:
+      - USERCERT=user1
+      - ORGCERT=worldsibusa
+      - KEYSTORE=/data/profiles/worldconsortiumfive/public/user1
+      - NETWORKPROFILE=/data/profiles/worldconsortiumfive/public/user1/network-profile.yaml
+      - CHANNEL=public
+      - CHAINCODE=drugstracker
+      - COUCHDBVIEW=public_drugstracker
+    deploy:
+      restart_policy:
+        condition: none
+    volumes:
+      - worldsibusa_data:/data
+      - worldsibusa_scripts:/scripts
+      - /Users/walter/Development/convector-example-drug-supply-chain/@worldsibu/server/dist:/usr/src/app/dist
+      - /Users/walter/Development/convector-example-drug-supply-chain/@worldsibu/server/node_modules/@worldsibu:/usr/src/app/node_modules/@worldsibu
+
+    networks:
+      - net_worldsibu
+
+volumes:
+  worldsibusa_data:
+  worldsibusa_scripts:
