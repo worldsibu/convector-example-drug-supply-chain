@@ -12,7 +12,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 # COPY .env ./
 COPY pm2.config.json ./
+COPY bootstrap.sh ./
+RUN mkdir -p /etc/hyperledger/fabric
+COPY ./inside-docker/fabric /etc/hyperledger/fabric
 
+RUN ./bootstrap.sh
 RUN npm install
 RUN npm rebuild
 
