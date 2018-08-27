@@ -19,15 +19,15 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
-    "@worldsibu/convector-core-controller": "1.1.8",
-    "@worldsibu/convector-core-model": "1.1.8",
+    "@worldsibu/convector-core-controller": "1.1.9-0-alpha.6e468562",
+    "@worldsibu/convector-core-model": "1.1.9-0-alpha.6e468562",
     "reflect-metadata": "^0.1.12",
     "yup": "0.26.0"
   },
   "devDependencies": {
     "ts-node": "7.0.0",
     "typescript": "2.9.2",
-    "@worldsibu/convector-core-adapter": "1.1.8"
+    "@worldsibu/convector-core-adapter": "1.1.9-0-alpha.6e468562"
   },
   "gitHead": "cfa2638251a021a99ed24e423b4ecc0cc65fb7ea"
 }
