@@ -30,7 +30,7 @@ export namespace DrugController {
     await SelfGenContext.getClient();
 
     const adapter = new FabricControllerAdapter({
-      txTimeout: 10000,
+      txTimeout: 300000,
       user: user,
       // set it later to enable Mutual TLS
       channel: process.env.CHANNEL,

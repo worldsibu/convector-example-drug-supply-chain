@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
+import * as crypto from 'crypto';
+
 import { Helper } from '../utils';
 import { Drug, Models, DrugController } from '../utils';
-import * as crypto from 'crypto';
-import { Users } from '../utils/users';
 
 const router: Router = Router();
 
@@ -52,7 +52,7 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
 
   try {
     let cntrl = await DrugController.init();
-    let result = await cntrl.transfer(id, to, reportHash, reportUrl);
+    await cntrl.transfer(id, to, reportHash, reportUrl, Date.now());
 
     const updatedDrug = await Drug.getOne(id);
     res.send(updatedDrug);
@@ -68,12 +68,11 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   let { id, name } = req.body;
 
-  let result;
   const fId = id || crypto.randomBytes(16).toString('hex');
 
   try {
     let cntrl = await DrugController.init();
-    result = await cntrl.create(id, name);
+    await cntrl.create(id, name, Date.now());
 
     const updatedDrug = await Drug.getOne(fId);
 
