@@ -10,13 +10,11 @@
  * Implementation will depend on this layer. In this case, what we want to do at this layer
  * is to call the backend peers.
  */
-import { DrugControllerClient } from '@worldsibu/convector-example-dsc-cc-drug/dist/client';
+import { resolve } from 'path';
 import { FabricControllerAdapter } from '@worldsibu/convector-adapter-fabric';
-import { join, resolve } from 'path';
-import { Helper } from './helper';
+import { DrugControllerClient } from '@worldsibu/convector-example-dsc-cc-drug/dist/client';
+
 import { SelfGenContext } from '../selfGenContext';
-import * as fs from 'fs';
-import * as path from 'path';
 
 /**
  * Building this adapter allows you to communicate with the

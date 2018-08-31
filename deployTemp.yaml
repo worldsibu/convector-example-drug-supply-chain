@@ -16,18 +16,21 @@ services:
 
     environment:
       - USERCERT=user1
-      - ORGCERT=worldsibusa
-      - KEYSTORE=/data/profiles/worldconsortium/public/user1
-      - NETWORKPROFILE=/data/profiles/worldconsortium/public/user1/network-profile.yaml
+      - ORGCERT=worldsibusaxxa-dev
+      - KEYSTORE=/data/profiles/worldconsortiumnhu/public/user1
+      - NETWORKPROFILE=/data/profiles/worldconsortiumnhu/public/user1/network-profile.yaml
       - CHANNEL=public
       - CHAINCODE=drugstracker
       - COUCHDBVIEW=public_drugstracker
+      - COUCHDB_HOST=peer1-worldbankxdp-dev-worldstate
+      - COUCHDB_PROTOCOL=http
+      - COUCHDB_PORT=5984
     deploy:
       restart_policy:
         condition: none
     volumes:
-      - worldsibusa_data:/data
-      - worldsibusa_scripts:/scripts
+      - worldsibusaxxa-dev_data:/data
+      - worldsibusaxxa-dev_scripts:/scripts
       - type: bind
         source: /Users/diestrin/Documents/Projects/Sibu/convector-example-drug-supply-chain/@worldsibu/server/dist
         target: /usr/src/app/dist
@@ -39,5 +42,5 @@ services:
       - net_worldsibu
 
 volumes:
-  worldsibusa_data:
-  worldsibusa_scripts:
+  worldsibusaxxa-dev_data:
+  worldsibusaxxa-dev_scripts:

@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class DrugsComponent implements OnInit {
   server = 'http://localhost:7788';
   error = '';
-  items: any[];
+  items: any[] = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
@@ -22,8 +22,8 @@ export class DrugsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.users = (await this._loadUsers() as any);
     this._refresh();
+    this.users = (await this._loadUsers() as any);
   }
 
   _loadUsers() {
@@ -39,7 +39,7 @@ export class DrugsComponent implements OnInit {
       alert('All details for transfer are required!');
       return;
     }
-    this.http.post(`http://localhost:10100/drug/${item.id}/transfer`, {
+    this.http.post(`${this.server}/drug/${item.id}/transfer`, {
       to: item.transfer.to,
       reportHash: item.transfer.hash,
       reportUrl: item.transfer.url
@@ -60,15 +60,12 @@ export class DrugsComponent implements OnInit {
       return;
     }
 
-    this.http.post(`${this.server}/drug`, {
-      id: id, name: name
-    }).subscribe(data => {
-      (data as any).class = 'newItem';
-      (data as any).transfer = {};
-      this.items.push(<any>data);
-    },
-      err => alert(err));
-
+    this.http.post(`${this.server}/drug`, { id, name })
+      .subscribe(data => {
+        (data as any).class = 'newItem';
+        (data as any).transfer = {};
+        this.items.push(<any>data);
+      }, err => alert(err));
   }
 
   reveal(item) {
@@ -77,15 +74,16 @@ export class DrugsComponent implements OnInit {
   }
 
   _refresh() {
-    this.http.get('http://localhost:10100/drug/').subscribe((data) => {
-      for (let item of <any[]>(data as any)) {
-        (item as any).transfer = {};
-      }
-      this.items = (data as any);
-      // console.log(this.items);
-    }, err => {
-      this.error = err;
-    });
-  }
+    this.http.get(`${this.server}/drug/`)
+      .subscribe((data) => {
+        for (const item of <any[]>(data as any)) {
+          (item as any).transfer = {};
+        }
 
+        this.items = (data as any);
+        // console.log(this.items);
+      }, err => {
+        this.error = err;
+      });
+  }
 }

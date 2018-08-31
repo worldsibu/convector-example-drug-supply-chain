@@ -10,9 +10,10 @@ const router: Router = Router();
 router.get('/', async (req: Request, res: Response) => {
   console.log('get');
   const channel = Helper.channel;
+  const cc = Helper.drugCC;
   // _drug is equivalent to the name of your chaincode
   // it gets generated on the world state
-  const dbName = channel + '_drug';
+  const dbName = `${channel}_${cc}`;
   const viewUrl = '_design/drugs/_view/all';
 
   const queryOptions = { startKey: [''], endKey: [''] };
