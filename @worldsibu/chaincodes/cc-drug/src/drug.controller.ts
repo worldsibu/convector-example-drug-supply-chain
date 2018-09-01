@@ -16,7 +16,9 @@ export class DrugController extends ConvectorController {
     @Param(yup.string())
     id: string,
     @Param(yup.string())
-    name: string
+    name: string,
+    @Param(yup.number())
+    created: number
   ) {
     const exists = await Drug.getOne(id);
 
@@ -31,9 +33,8 @@ export class DrugController extends ConvectorController {
     drug.modifiedBy = this.sender;
     drug.holder = this.sender;
 
-    const now = new Date();
-    drug.created = now;
-    drug.modified = now;
+    drug.created = created;
+    drug.modified = created;
 
     await drug.save();
   }
@@ -47,7 +48,9 @@ export class DrugController extends ConvectorController {
     @Param(yup.string())
     reportHash,
     @Param(yup.string())
-    reportUrl
+    reportUrl,
+    @Param(yup.number())
+    modified: number
   ) {
     const drug = await Drug.getOne(drugId);
 
@@ -73,7 +76,7 @@ export class DrugController extends ConvectorController {
 
     // Update as modified
     drug.modifiedBy = this.sender;
-    drug.modified = new Date();
+    drug.modified = modified;
 
     await drug.save();
   }

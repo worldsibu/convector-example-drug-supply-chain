@@ -28,9 +28,9 @@ export class Drug extends ConvectorModel<Drug> {
   /** Current user owning the drug. */
   public reports: Array<Report>;
 
-  @Validate(yup.date())
+  @Validate(yup.number())
   /** Date in which it was modified. */
-  public modified: Date;
+  public modified: number;
 
   @Required()
   @Validate(yup.string())
@@ -39,10 +39,9 @@ export class Drug extends ConvectorModel<Drug> {
 
   @ReadOnly()
   @Required()
-  @Validate(yup.date())
-  @Default(() => Date.now)
+  @Validate(yup.number())
   /** Unmodifiable date of creation. Default will be the date when created the object. */
-  public created: Date;
+  public created: number;
 
   @ReadOnly()
   @Required()

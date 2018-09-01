@@ -22,9 +22,13 @@ export class DrugControllerClient extends ConvectorController {
     
     id: string,
     
-    name: string
+    name: string,
+    
+    created: number
   ) {
-    await this.adapter.invoke(this.name, 'create', undefined, id, name);
+
+          return await this.adapter.invoke(this.name, 'create', undefined, id, name, created);
+        
   }
 
   
@@ -36,8 +40,12 @@ export class DrugControllerClient extends ConvectorController {
     
     reportHash,
     
-    reportUrl
+    reportUrl,
+    
+    modified: number
   ) {
-    await this.adapter.invoke(this.name, 'transfer', undefined, drugId, to, reportHash, reportUrl);
+
+          return await this.adapter.invoke(this.name, 'transfer', undefined, drugId, to, reportHash, reportUrl, modified);
+        
   }
 }

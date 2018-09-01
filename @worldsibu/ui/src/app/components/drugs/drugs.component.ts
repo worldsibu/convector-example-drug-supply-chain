@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/dist/src/drug.model';
+
 
 @Component({
   selector: 'app-drugs',
@@ -11,8 +11,9 @@ import { Drug } from '@worldsibu/convector-example-dsc-cc-drug/dist/src/drug.mod
   ]
 })
 export class DrugsComponent implements OnInit {
+  server = 'http://localhost:7788';
   error = '';
-  items: Drug[];
+  items: any[] = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
@@ -21,12 +22,12 @@ export class DrugsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.users = (await this._loadUsers() as any);
     this._refresh();
+    this.users = (await this._loadUsers() as any);
   }
 
   _loadUsers() {
-    return this.http.get('http://localhost:10100/drug/users').toPromise();
+    return this.http.get(`${this.server}/drug/users`).toPromise();
   }
 
   refresh() {
@@ -38,7 +39,7 @@ export class DrugsComponent implements OnInit {
       alert('All details for transfer are required!');
       return;
     }
-    this.http.post(`http://localhost:10100/drug/${item.id}/transfer`, {
+    this.http.post(`${this.server}/drug/${item.id}/transfer`, {
       to: item.transfer.to,
       reportHash: item.transfer.hash,
       reportUrl: item.transfer.url
@@ -49,25 +50,22 @@ export class DrugsComponent implements OnInit {
       this.reveal(item);
     }, err => {
       console.log(err);
-      alert(err.error.responses[0].details)
+      alert(err.error.responses[0].details);
     });
   }
 
   create(id, name) {
     if (!id || !name) {
-      alert('Please fill all the form.')
+      alert('Please fill all the form.');
       return;
     }
 
-    this.http.post('http://localhost:10100/drug', {
-      id: id, name: name
-    }).subscribe(data => {
-      (data as any).class = 'newItem';
-      (data as any).transfer = {};
-      this.items.push(<Drug>data);
-    },
-      err => alert(err));
-
+    this.http.post(`${this.server}/drug`, { id, name })
+      .subscribe(data => {
+        (data as any).class = 'newItem';
+        (data as any).transfer = {};
+        this.items.push(<any>data);
+      }, err => alert(err));
   }
 
   reveal(item) {
@@ -76,15 +74,16 @@ export class DrugsComponent implements OnInit {
   }
 
   _refresh() {
-    this.http.get('http://localhost:10100/drug/').subscribe((data) => {
-      for (let item of <Drug[]>(data as any)) {
-        (item as any).transfer = {};
-      }
-      this.items = (data as any);
-      //console.log(this.items);
-    }, err => {
-      this.error = err;
-    });
-  }
+    this.http.get(`${this.server}/drug/`)
+      .subscribe((data) => {
+        for (const item of <any[]>(data as any)) {
+          (item as any).transfer = {};
+        }
 
+        this.items = (data as any);
+        // console.log(this.items);
+      }, err => {
+        this.error = err;
+      });
+  }
 }

@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
+import * as crypto from 'crypto';
+
 import { Helper } from '../utils';
 import { Drug, Models, DrugController } from '../utils';
-import * as crypto from 'crypto';
-import { Users } from '../utils/users';
 
 const router: Router = Router();
 
@@ -10,9 +10,10 @@ const router: Router = Router();
 router.get('/', async (req: Request, res: Response) => {
   console.log('get');
   const channel = Helper.channel;
+  const cc = Helper.drugCC;
   // _drug is equivalent to the name of your chaincode
   // it gets generated on the world state
-  const dbName = channel + '_drug';
+  const dbName = `${channel}_${cc}`;
   const viewUrl = '_design/drugs/_view/all';
 
   const queryOptions = { startKey: [''], endKey: [''] };
@@ -33,17 +34,17 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 
-router.get('/users', (req: Request, res: Response) => {
-  const list = [
-    { org: 'org1', user: 'user1', name: 'Manufacturer Acme', },
-    { org: 'org1', user: 'user2', name: 'Manufacturer W. White' },
-    { org: 'org1', user: 'user3', name: 'Manufacturer Gus' },
-    { org: 'org2', user: 'user1', name: 'Springfield General Hospital' },
-    { org: 'org2', user: 'user2', name: 'Arkham Asylum' },
-    { org: 'org2', user: 'user3', name: 'Mercy Hospital' }];
+// router.get('/users', (req: Request, res: Response) => {
+//   const list = [
+//     { org: 'org1', user: 'user1', name: 'Manufacturer Acme', },
+//     { org: 'org1', user: 'user2', name: 'Manufacturer W. White' },
+//     { org: 'org1', user: 'user3', name: 'Manufacturer Gus' },
+//     { org: 'org2', user: 'user1', name: 'Springfield General Hospital' },
+//     { org: 'org2', user: 'user2', name: 'Arkham Asylum' },
+//     { org: 'org2', user: 'user3', name: 'Mercy Hospital' }];
 
-  res.send(Users.GetUsers(list));
-});
+//   res.send(Users.GetUsers(list));
+// });
 
 /** Transfer the holder of the drug in the value chain. */
 router.post('/:id/transfer/', async (req: Request, res: Response) => {
@@ -51,7 +52,8 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
   let { to, reportHash, reportUrl } = req.body;
 
   try {
-    let result = await DrugController.transfer(id, to, reportHash, reportUrl);
+    let cntrl = await DrugController.init();
+    await cntrl.transfer(id, to, reportHash, reportUrl, Date.now());
 
     const updatedDrug = await Drug.getOne(id);
     res.send(updatedDrug);
@@ -67,11 +69,11 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   let { id, name } = req.body;
 
-  let result;
   const fId = id || crypto.randomBytes(16).toString('hex');
 
   try {
-    result = await DrugController.create(id, name);
+    let cntrl = await DrugController.init();
+    await cntrl.create(id, name, Date.now());
 
     const updatedDrug = await Drug.getOne(fId);
 
