@@ -9,10 +9,9 @@
     "client/*"
   ],
   "scripts": {
-    "client:generate": "generate-controller-interface -c DrugController",
     "------------ STANDARD TASKS ------------": "",
     "clean": "rimraf dist client",
-    "build": "npm run clean && npm run client:generate && tsc",
+    "build": "npm run clean && tsc",
     "prepare": "npm run build"
   },
   "author": "WorldSibu",
