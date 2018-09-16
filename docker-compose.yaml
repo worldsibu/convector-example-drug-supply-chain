@@ -1,0 +1,46 @@
+version: '3.2'
+
+networks:
+  net_worldsibu:
+    external:
+      # name: net_worldsibu
+      name: net_basic
+
+services:
+  worldbankdrugstrackerbackendXwl:
+    image: worldsibu/convector-example-dsc
+
+    ports:
+      - 10100:10100
+      - 9090:9222
+
+    environment:
+      - USERCERT=${DEFAULT_USER}
+      - ORGCERT=${DEFAULT_USER_MSP}
+      - KEYSTORE=${KEY_STORE}
+      - NETWORKPROFILE=${NETWORK_PROFILE}
+      - CHANNEL=${DEFAULT_CHANNEL}
+      - CHAINCODE=${CHAINCODE_NAME}
+      - COUCHDB_PORT=${COUCHDB_PORT}
+      - COUCHDB_HOST=${COUCHDB_HOST}
+      - COUCHDBVIEW=${DEFAULT_CHANNEL}_${CHAINCODE_NAME}
+      - COUCHDB_PROTOCOL=${COUCHDB_PROTOCOL}
+    deploy:
+      restart_policy:
+        condition: none
+    volumes:
+      - worldsibusaxxa-dev_data:/data
+      - worldsibusaxxa-dev_scripts:/scripts
+      - type: bind
+        source: ./@worldsibu/server/dist
+        target: /usr/src/app/dist
+      - type: bind
+        source: ./@worldsibu/server/node_modules/@worldsibu/convector-example-dsc-cc-drug
+        target: /usr/src/app/node_modules/@worldsibu/convector-example-dsc-cc-drug
+
+    networks:
+      - net_worldsibu
+
+volumes:
+  worldsibusaxxa-dev_data:
+  worldsibusaxxa-dev_scripts:

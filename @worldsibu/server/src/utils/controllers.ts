@@ -13,7 +13,9 @@
 import { resolve } from 'path';
 import { FabricControllerAdapter } from '@worldsibu/convector-adapter-fabric';
 import { DrugControllerClient } from '@worldsibu/convector-example-dsc-cc-drug/dist/client';
+import { ParticipantControllerClient, Participant } from '@worldsibu/convector-example-dsc-cc-participant/dist/client';
 
+import { Models } from './models';
 import { SelfGenContext } from '../selfGenContext';
 
 /**
@@ -23,7 +25,6 @@ import { SelfGenContext } from '../selfGenContext';
 export namespace DrugController {
   export async function init(): Promise<DrugControllerClient> {
     const user = process.env.USERCERT || 'user1';
-    const org = process.env.ORGCERT || 'org1';
 
     await SelfGenContext.getClient();
 
@@ -38,35 +39,44 @@ export namespace DrugController {
       userMspPath: process.env.KEYSTORE
     });
 
-//ups something changed
-
-    // adapter.client.getUserContext()
-    // adapter.client.lo
-    // get it dynamically
-    // const privateKeyFile = fs.readdirSync(process.env.KEYSTORE + '/keystore')[0];
-
-    // let serverCert = fs.readFileSync(path.resolve(__dirname, `/data/${process.env.ORGCERT}-ca-chain.pem`));
-    // let clientKey = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'keystore', privateKeyFile));
-    // let clientCert = fs.readFileSync(path.resolve(__dirname, process.env.KEYSTORE, 'signcerts', 'cert.pem'));
-
-    // adapter.client.setTlsClientCertAndKey(Buffer.from(clientCert).toString(), Buffer.from(clientKey).toString());
-    // let channel = await adapter.client.newChannel(process.env.CHANNEL);
-
-    // adapter.channel = channel;
-    // let channel = await adapter.useChannel();
-
-    // for (let peer of channel.getPeers()) {
-    //   channel.removePeer(peer);
-    // }
-
-    // let peer = adapter.client.newPeer(
-    //   'grpcs://localhost:7051',
-    //   {
-    //     'pem': Buffer.from(serverCert).toString()
-    //   }
-    // );
-
     await adapter.init();
     return new DrugControllerClient(adapter);
+  }
+}
+
+export namespace ParticipantController {
+
+
+  export async function init(): Promise<ParticipantControllerClient> {
+    const user = process.env.USERCERT || 'user1';
+    const organization = process.env.ORGCERT || 'org1';
+
+    await SelfGenContext.getClient();
+
+    const adapter = new FabricControllerAdapter({
+      user,
+      txTimeout: 300000,
+      // set it later to enable Mutual TLS
+      channel: process.env.CHANNEL,
+      chaincode: process.env.CHAINCODE,
+      keyStore: resolve(__dirname, process.env.KEYSTORE),
+      networkProfile: resolve(__dirname, process.env.NETWORKPROFILE),
+      userMspPath: process.env.KEYSTORE
+    });
+
+    await adapter.init();
+
+    const participantCtrl = new ParticipantControllerClient(adapter);
+
+    const users = await Models.getAllParticipants();
+    if (!users.find(u => u.user === user && u.organization === organization)) {
+      await participantCtrl.register(new Participant({
+        user,
+        organization,
+        created: Date.now()
+      }))
+    }
+
+    return participantCtrl;
   }
 }

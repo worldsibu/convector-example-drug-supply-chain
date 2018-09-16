@@ -1,5 +1,3 @@
-/** @module @worldsibu/convector-examples-token */
-
 import * as yup from 'yup';
 import {
   ConvectorModel,

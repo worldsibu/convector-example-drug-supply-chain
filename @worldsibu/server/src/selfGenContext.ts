@@ -1,11 +1,8 @@
 /** Referenced from: https://github.com/ksachdeva/hyperledger-fabric-example/blob/c41fcaa352e78cbf3c7cfb210338ac0f20b8357e/src/client.ts */
-import { resolve } from 'path';
-import { readFileSync } from 'fs';
-import * as Client from 'fabric-client';
 import * as fs from 'fs';
+import { join } from 'path';
+import * as Client from 'fabric-client';
 import { IEnrollmentRequest, IRegisterRequest } from 'fabric-ca-client';
-
-import { ClientHelper, ClientConfig } from '@worldsibu/convector-common-fabric-helper';
 
 export type UserParams = IRegisterRequest;
 export type AdminParams = IEnrollmentRequest;
@@ -19,7 +16,7 @@ export namespace SelfGenContext {
 
   export async function getClient() {
     // Check if needed
-    const contextPath = process.env.KEYSTORE + '/' + process.env.USERCERT;
+    const contextPath = join(__dirname, process.env.KEYSTORE + '/' + process.env.USERCERT);
 
     fs.readFile(contextPath, 'utf8', async function (err, data) {
       if (err) {

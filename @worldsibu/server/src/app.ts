@@ -1,11 +1,11 @@
 // @ts-check
 
 import * as dotenv from 'dotenv';
+dotenv.config();
+
 import * as express from 'express';
 import { DrugCtrl } from './controllers';
 import * as bodyParser from 'body-parser';
-
-dotenv.config();
 
 const app: express.Application = express();
 const port = process.env.PORT || 10100;

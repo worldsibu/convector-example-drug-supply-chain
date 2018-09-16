@@ -1,10 +1,22 @@
-import { Router, Request, Response } from 'express';
 import * as crypto from 'crypto';
+import { Router, Request, Response } from 'express';
 
 import { Helper } from '../utils';
-import { Drug, Models, DrugController } from '../utils';
+import { Drug, Models, DrugController, Participant, ParticipantController } from '../utils';
 
 const router: Router = Router();
+
+ParticipantController.init();
+
+/** Get all the users */
+router.get('/users', async (req: Request, res: Response) => {
+  try {
+    res.send(await Models.getAllParticipants());
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+});
 
 /** Get all the drugs! */
 router.get('/', async (req: Request, res: Response) => {
@@ -19,7 +31,7 @@ router.get('/', async (req: Request, res: Response) => {
   const queryOptions = { startKey: [''], endKey: [''] };
 
   try {
-    const result = <Drug[]>(await Drug.query(Drug, dbName, viewUrl, queryOptions));
+    const result = <Drug[]>(await Models.Drug.query(Models.Drug, dbName, viewUrl, queryOptions));
 
     res.send(await Promise.all(result.map(Models.formatDrug)));
   } catch (err) {
@@ -55,7 +67,7 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
     let cntrl = await DrugController.init();
     await cntrl.transfer(id, to, reportHash, reportUrl, Date.now());
 
-    const updatedDrug = await Drug.getOne(id);
+    const updatedDrug = await Models.formatDrug(await Models.Drug.getOne(id));
     res.send(updatedDrug);
 
   } catch (err) {
@@ -75,7 +87,7 @@ router.post('/', async (req: Request, res: Response) => {
     let cntrl = await DrugController.init();
     await cntrl.create(id, name, Date.now());
 
-    const updatedDrug = await Drug.getOne(fId);
+    const updatedDrug = await Models.formatDrug(await Models.Drug.getOne(fId));
 
     res.send(updatedDrug);
 
