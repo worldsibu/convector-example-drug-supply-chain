@@ -60,6 +60,11 @@ Go to `localhost:4200` and use the application!
 
 Since the "user" running the server is a blockchain identity coming from a certificate, to make it easy to switch between users you can use the scripts:
 
+## Multiple users (transfer and other functions)
+
+To have multiple users registered in the network you need to start the server per each user that will be
+available with these example scripts 👇
+
 ```
 # Start the server as the first user of the org 1
 lerna run start:org1:user1 --scope @worldsibu/convector-example-dsc-server --stream
@@ -75,13 +80,3 @@ lerna run start:org2:user2 --scope @worldsibu/convector-example-dsc-server --str
 lerna run start:org2:user3 --scope @worldsibu/convector-example-dsc-server --stream
 ```
 
-
-#### In case the server gives errors regarding 
-
-It's due to Babel's latest update. Temporarily there are no much solutions, but running this will fix the server for now (took from [here](https://forums.meteor.com/t/error-cannot-find-module-babel-runtime-helpers-builtin-interoprequiredefault/44944/4)):
-
-```
-mkdir $(pwd)/node_modules/@babel/runtime/helpers/builtin
-
-cp $(pwd)/node_modules/@babel/runtime/helpers/* $(pwd)/node_modules/@babel/runtime/helpers/builtin/
-```
