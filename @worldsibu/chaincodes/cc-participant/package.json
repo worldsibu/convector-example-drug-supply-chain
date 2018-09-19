@@ -1,5 +1,5 @@
 {
-  "name": "@worldsibu/convector-example-dsc-cc-drug",
+  "name": "@worldsibu/convector-example-dsc-cc-participant",
   "version": "1.0.0",
   "description": "",
   "author": "WorldSibu",
@@ -17,7 +17,7 @@
     "prepare": "npm run build",
     "test": "npm run build && mocha -r ts-node/register tests/*.spec.ts --reporter spec",
     "------------ CHAINCODE TASKS ------------": "",
-    "client:generate": "generate-controller-interface -c DrugController"
+    "client:generate": "generate-controller-interface -c ParticipantController"
   },
   "dependencies": {
     "@worldsibu/convector-core-controller": "1.2.0",

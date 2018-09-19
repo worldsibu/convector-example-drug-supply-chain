@@ -11,12 +11,13 @@ import { HttpClient } from '@angular/common/http';
   ]
 })
 export class DrugsComponent implements OnInit {
-  server = 'http://localhost:7788';
+  server = 'http://localhost:10100';
   error = '';
   items: any[] = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
+  addNew = false;
 
   constructor(private http: HttpClient) {
   }

@@ -11,9 +11,9 @@ import { ControllerAdapter } from '@worldsibu/convector-core-adapter';
 
 
 export class DrugControllerClient extends ConvectorController {
-  private name = 'drug';
+  public name = 'drug';
 
-  constructor(private adapter: ControllerAdapter) {
+  constructor(public adapter: ControllerAdapter, public user?: string) {
     super()
   }
 
@@ -27,7 +27,7 @@ export class DrugControllerClient extends ConvectorController {
     created: number
   ) {
 
-          return await this.adapter.invoke(this.name, 'create', undefined, id, name, created);
+          return await this.adapter.invoke(this.name, 'create', this.user, id, name, created);
         
   }
 
@@ -45,7 +45,7 @@ export class DrugControllerClient extends ConvectorController {
     modified: number
   ) {
 
-          return await this.adapter.invoke(this.name, 'transfer', undefined, drugId, to, reportHash, reportUrl, modified);
+          return await this.adapter.invoke(this.name, 'transfer', this.user, drugId, to, reportHash, reportUrl, modified);
         
   }
 }

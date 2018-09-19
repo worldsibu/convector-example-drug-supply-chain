@@ -9,6 +9,11 @@
       "name": "@worldsibu/convector-example-dsc-cc-drug",
       "version": "file:./@worldsibu/chaincodes/cc-drug",
       "controller": "DrugController"
+    },
+    {
+      "name": "@worldsibu/convector-example-dsc-cc-participant",
+      "version": "file:./@worldsibu/chaincodes/cc-participant",
+      "controller": "ParticipantController"
     }
   ],
   "policy": {

@@ -1,7 +1,7 @@
 {
   "views": {
       "all": {
-          "map": "function (doc) {emit(doc._id, doc);}"
+          "map": "function (doc) {if (doc.type === 'io.worldsibu.examples.drug') emit(doc._id, doc);}"
       }
   }
 }

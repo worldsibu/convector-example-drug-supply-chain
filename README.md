@@ -34,8 +34,9 @@ Install dependencies:
 npm i
 ```
 
-Build the chaincode:
+Build the chaincode (running `npm i` already did this for you):
 ```bash
+lerna run client:generate --scope @worldsibu/convector-example-dsc-chaincodes
 lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
 ```
 
@@ -48,6 +49,8 @@ npm run env:restart
 npm run cc:start 1.0
 ```
 
+Or run `npm run restart` to do it all for you!
+
 Install the required compiled view 
 ```bash
 npm run vw:install
@@ -57,7 +60,7 @@ Run the project
 
 ```bash
 # Start the server
-lerna run start --scope @worldsibu/convector-example-dsc-server --stream
+lerna run start:dev --scope @worldsibu/convector-example-dsc-server --stream
 # Start the ui project
 lerna run start --scope @worldsibu/convector-example-dsc-ui --stream
 ```

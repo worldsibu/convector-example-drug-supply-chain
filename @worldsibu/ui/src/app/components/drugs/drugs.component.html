@@ -13,8 +13,8 @@
       <td>{{item.name}}</td>
       <td>
         <div (click)="reveal(item)">
-          <h4>{{item.holderName}}</h4>
-          <span class="holder" title="Reveal the name of the holder">{{item.holder}}</span>
+          <h4>{{item.holder.user}} ({{item.holder.organization}})</h4>
+          <span class="holder" title="Reveal the name of the holder">{{item.holder.id}}</span>
         </div>
         <div>
           <a class="link" (click)="item.transferActive = !item.transferActive  ">
@@ -24,8 +24,9 @@
             <div class="form-group">
               <label for="txtTransferTo">Transfer to</label>
               <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
+                <option selected disabled>Select the user to transfer</option>
                 <option *ngFor="let user of users" value="{{user.id}}">
-                  {{user.name}}
+                  {{user.user}} ({{user.organization}})
                 </option>
               </select>
               <small class="form-text text-muted">
