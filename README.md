@@ -36,24 +36,15 @@ npm i
 
 Build the chaincode (running `npm i` already did this for you):
 ```bash
-lerna run client:generate --scope @worldsibu/convector-example-dsc-chaincodes
 lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
+lerna run build --scope @worldsibu/convector-example-dsc-cc-participant
 ```
 
 Wake up the environment and install the components.
 
 ```bash
-# Start the development blockchain
-npm run env:restart
-# Install the chaincode
-npm run cc:start 1.0
-```
-
-Or run `npm run restart` to do it all for you!
-
-Install the required compiled view 
-```bash
-npm run vw:install
+# Start the development blockchain and install chaincodes
+npm run restart
 ```
 
 Run the project
