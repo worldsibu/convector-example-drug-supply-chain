@@ -21,6 +21,7 @@
     "clean": "rimraf dist client",
     "refresh": "./node_modules/pm2/bin/pm2 stop 0 && ./node_modules/pm2/bin/pm2 start 0",
     "build": "npm run clean && tsc && cp -R ./src/config ./dist/",
+    "prepare": "npm run build",
     "docker:build": "docker build -t worldsibu/convector-example-dsc .",
     "docker:build:nocache": "docker build -t worldsibu/convector-example-dsc . --no-cache",
     "test": "mocha -r ts-node/register test/*.spec.ts --reporter spec",
@@ -29,7 +30,7 @@
   "dependencies": {
     "@worldsibu/convector-adapter-fabric": "1.2.0",
     "@worldsibu/convector-example-dsc-cc-drug": "1.0.0",
-    "@worldsibu/convector-example-dsc-cc-participant": "^1.0.0",
+    "@worldsibu/convector-example-dsc-cc-participant": "1.0.0",
     "@worldsibu/convector-storage-couchdb": "1.2.0",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
