@@ -1,10 +1,22 @@
 import * as yup from 'yup';
 import {
   ConvectorModel,
+  Default,
   ReadOnly,
   Required,
   Validate
 } from '@worldsibu/convector-core-model';
+
+export interface x509Identities {
+  status: boolean;
+  fingerprint: string;
+}
+
+export const x509Identities = yup.object<x509Identities>().shape({
+  status: yup.boolean().required(),
+  fingerprint: yup.string().required()
+});
+
 
 export class Participant extends ConvectorModel<Participant> {
   @ReadOnly()
@@ -13,16 +25,13 @@ export class Participant extends ConvectorModel<Participant> {
   @ReadOnly()
   @Required()
   @Validate(yup.string())
-  public user: string;
+  public name: string;
 
   @ReadOnly()
-  @Required()
   @Validate(yup.string())
-  public organization: string;
+  public msp: string;
 
-  @ReadOnly()
-  @Required()
-  @Validate(yup.number())
-  /** Unmodifiable date of creation. Default will be the date when created the object. */
-  public created: number;
+  @Validate(yup.array(x509Identities))
+  public identities: x509Identities[];
 }
+

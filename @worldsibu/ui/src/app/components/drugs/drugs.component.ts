@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -19,10 +20,11 @@ export class DrugsComponent implements OnInit {
   users: any[];
   addNew = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
   async ngOnInit() {
+    setTimeout(() => { this.toastr.success('App started', 'App started') }, 0);
     this._refresh();
     this.users = (await this._loadUsers() as any);
   }
@@ -66,7 +68,7 @@ export class DrugsComponent implements OnInit {
         (data as any).class = 'newItem';
         (data as any).transfer = {};
         this.items.push(<any>data);
-      }, err => alert(err));
+      }, err => alert(JSON.stringify(err)));
   }
 
   reveal(item) {

@@ -1,6 +1,6 @@
 {
   "name": "@worldsibu/convector-example-drug-supply-chain",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A simple example to track drugs with Convector Framework.",
   "main": "index.js",
   "repository": {
@@ -26,10 +26,7 @@
     "user:fingerprint": "f () { node -e \"console.log(JSON.parse(require('fs').readFileSync('./.convector-dev-env/.hfc-$1/$2', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
     "================= Life cycle =================": "==================================",
     "install": "npm-run-all -s lerna:install",
-    "init": "npm-run-all -s env:init 'cc:start -- 1'",
-    "start": "npm-run-all -s env:start",
-    "clean": "npm-run-all -s env:stop env:clean",
-    "restart": "npm-run-all -s clean install start init vw:install",
+    "restart": "npm-run-all -s env:start cc:start cc:initialInvoke vw:install",
     "test": "npm-run-all -s lerna:test",
     "================= Lerna =================": "==================================",
     "lerna:install": "lerna bootstrap",
@@ -39,19 +36,13 @@
     "lerna:test": "lerna exec npm run test",
     "lerna:lint": "lerna run lint",
     "================= Dev Env =================": "==================================",
-    "env:init": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/init.sh",
-    "env:start": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/start.sh",
-    "env:stop": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/stop.sh",
-    "env:restart": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/restart.sh",
-    "env:clean": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/clean.sh",
+    "env:start": "hurl new -u 3",
     "================= Chaincodes =================": "==================================",
-    "cc:start": "f() { npm-run-all -s cc:package -p \"cc:install -- org1 $1\" \"cc:install -- org2 $1\" -s wait \"cc:instantiate -- $1\"; }; f",
-    "cc:package": "chaincode-manager --config ./org1.chaincode.config.json --output ./chaincode package",
-    "cc:install": "f() { chaincode-manager --config ./$1.chaincode.config.json install ./chaincode drug $2; }; f",
-    "cc:instantiate": "chaincode-manager --config ./org1.chaincode.config.json instantiate drug",
-    "cc:upgrade": "chaincode-manager --config ./org1.chaincode.config.json upgrade drug",
-    "cc:invoke": "f() { chaincode-manager --config ./$1.chaincode.config.json invoke drug ${@:2}; }; f",
-    "cc:upgradeInAll": "f() { npm-run-all -s cc:package \"cc:install -- org1 $1\" \"cc:install -- org2 $1\" \"cc:upgrade -- $1\"; }; f",
+    "cc:start": "f() { npm run cc:package; npm run cc:install; }; f",
+    "cc:package": "f() { npm run lerna:build; chaincode-manager --config ./org1.chaincode.config.json --output ./chaincode-drug package; }; f",
+    "cc:install": "hurl install drug node -P ./chaincode-drug",
+    "cc:upgrade": "f() { hurl upgrade drug node $1 -P ./chaincode-drug ;}; f",
+    "cc:initialInvoke": "hurl invoke drug participant_get \"user1\"",
     "================= Views =================": "==================================",
     "vw:install": "./@worldsibu/views/installViews.sh"
   },
@@ -69,5 +60,8 @@
     "@types/bytebuffer": "^5.0.37",
     "fabric-ca-client": "~1.1.2",
     "fabric-client": "~1.1.2"
+  },
+  "dependencies": {
+    "@worldsibu/hurley": "^0.5.0"
   }
 }

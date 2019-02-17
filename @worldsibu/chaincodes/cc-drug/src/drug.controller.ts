@@ -7,6 +7,7 @@ import {
 } from '@worldsibu/convector-core-controller';
 
 import { Drug } from './drug.model';
+import { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
 
 @Controller('drug')
 export class DrugController extends ConvectorController {
@@ -17,6 +18,8 @@ export class DrugController extends ConvectorController {
     id: string,
     @Param(yup.string())
     name: string,
+    @Param(yup.string())
+    owner: string,
     @Param(yup.number())
     created: number
   ) {
@@ -31,7 +34,7 @@ export class DrugController extends ConvectorController {
     // Initialize the object!
     drug.createdBy = this.sender;
     drug.modifiedBy = this.sender;
-    drug.holder = this.sender;
+    drug.holder = owner;
 
     drug.created = created;
     drug.modified = created;
@@ -54,8 +57,16 @@ export class DrugController extends ConvectorController {
   ) {
     const drug = await Drug.getOne(drugId);
 
-    if (drug.holder !== this.sender) {
-      throw new Error('The current holder is the only user capable of transferring the drug in the value chain.');
+    const owner = await Participant.getOne(drug.holder);
+
+    if (!owner || !owner.id || !owner.identities) {
+      throw new Error('Referenced owner participant does not exist in the ledger');
+    }
+
+    const ownerCurrentIdentity = owner.identities.find(identity => identity.status === true);
+
+    if (ownerCurrentIdentity.fingerprint !== this.sender) {
+      throw new Error(`The current holder is the only user capable of transferring the drug in the value chain. Tried ${this.sender} but expected ${ownerCurrentIdentity.fingerprint}`);
     }
 
     // Change the holder.

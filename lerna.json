@@ -6,11 +6,7 @@
   "version": "1.0.0",
   "command": {
     "bootstrap": {
-      "hoist": true,
-      "nohoist": [
-        "@types/jasminewd2",
-        "@types/jasmine"
-      ]
+      "hoist": false
     }
   }
 }

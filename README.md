@@ -1,6 +1,6 @@
 # Drug Supply Chain Integrity
 
-The current mono-repo is a simple project to showcase the ease and power of [Convector](https://worldsibu.io/convector) by creating a basic Drug Supply Chain fullstack application example.
+The current mono-repo is a simple project to showcase the ease and power of [Convector](https://worldsibu.tech/convector) by creating a basic Drug Supply Chain fullstack application example.
 
 Some of the challenges on the field are:
 
@@ -30,14 +30,18 @@ The end result:
 ## Run the project
 
 Install dependencies:
+
+First rename `./@worldsibu/server/.env-default` to `./@worldsibu/server/.env` and change `KEYSTORE` and `NETWORKPROFILE` vars with your $HOME path accordingly. If you don't know where it is run `echo $HOME`
+
 ```bash
 npm i
 ```
 
 Build the chaincode (running `npm i` already did this for you):
+
 ```bash
-lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
-lerna run build --scope @worldsibu/convector-example-dsc-cc-participant
+npx lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
+npx lerna run build --scope @worldsibu/convector-example-dsc-cc-participant
 ```
 
 Wake up the environment and install the components.
@@ -51,9 +55,9 @@ Run the project
 
 ```bash
 # Start the server
-lerna run start:dev --scope @worldsibu/convector-example-dsc-server --stream
+npx lerna run start:dev --scope @worldsibu/convector-example-dsc-server --stream
 # Start the ui project
-lerna run start --scope @worldsibu/convector-example-dsc-ui --stream
+npx lerna run start --scope @worldsibu/convector-example-dsc-ui --stream
 ```
 
 Go to `localhost:4200` and use the application!

@@ -22,6 +22,7 @@
   "dependencies": {
     "@worldsibu/convector-core-controller": "1.2.0",
     "@worldsibu/convector-core-model": "1.2.0",
+    "@worldsibu/convector-example-dsc-cc-participant": "^1.0.0",
     "reflect-metadata": "^0.1.12",
     "yup": "^0.24.1"
   },

@@ -13,7 +13,7 @@
       <td>{{item.name}}</td>
       <td>
         <div (click)="reveal(item)">
-          <h4>{{item.holder.user}} ({{item.holder.organization}})</h4>
+          <h4>{{item.holder.user}} ({{item.holder.msp}})</h4>
           <span class="holder" title="Reveal the name of the holder">{{item.holder.id}}</span>
         </div>
         <div>
@@ -26,7 +26,7 @@
               <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
                 <option selected disabled>Select the user to transfer</option>
                 <option *ngFor="let user of users" value="{{user.id}}">
-                  {{user.user}} ({{user.organization}})
+                  {{user.id}} ({{user.msp}})
                 </option>
               </select>
               <small class="form-text text-muted">

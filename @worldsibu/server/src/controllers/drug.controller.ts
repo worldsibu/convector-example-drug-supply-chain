@@ -79,13 +79,13 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
 
 /** Insert one drug. */
 router.post('/', async (req: Request, res: Response) => {
-  let { id, name } = req.body;
+  let { id, name, owner } = req.body;
 
   const fId = id || crypto.randomBytes(16).toString('hex');
 
   try {
     let cntrl = await DrugController.init();
-    await cntrl.create(id, name, Date.now());
+    await cntrl.create(id, name, process.env.USERCERT, Date.now());
 
     const updatedDrug = await Models.formatDrug(await Models.Drug.getOne(fId));
 

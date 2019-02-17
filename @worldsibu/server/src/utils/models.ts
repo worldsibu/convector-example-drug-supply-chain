@@ -14,8 +14,8 @@ BaseStorage.current = new CouchDBStorage({
 export namespace Models {
   export async function formatDrug(drug: DrugModel): Promise<any> {
     const drugObj = drug.toJSON();
-    drugObj.createdBy = await formatParticipant(await Participant.getOne(drugObj.createdBy));
-    drugObj.modifiedBy = await formatParticipant(await Participant.getOne(drugObj.modifiedBy));
+    // drugObj.createdBy = await formatParticipant(await Participant.getOne(drugObj.createdBy));
+    // drugObj.modifiedBy = await formatParticipant(await Participant.getOne(drugObj.modifiedBy));
     drugObj.holder = await formatParticipant(await Participant.getOne(drugObj.holder));
     return drugObj;
   }
@@ -36,6 +36,7 @@ export namespace Models {
     const queryOptions = { startKey: [''], endKey: [''] };
 
     try {
+      console.log(Participant.query);
       const result = <ParticipantModel[]>(await Participant.query(Participant, dbName, viewUrl, queryOptions));
 
       return await Promise.all(result.map(formatParticipant));
