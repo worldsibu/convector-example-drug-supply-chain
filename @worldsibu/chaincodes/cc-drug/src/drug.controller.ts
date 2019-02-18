@@ -7,6 +7,8 @@ import {
 } from '@worldsibu/convector-core-controller';
 
 import { Drug } from './drug.model';
+import { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
+import { History } from '@worldsibu/convector-core-model';
 
 @Controller('drug')
 export class DrugController extends ConvectorController {
@@ -17,6 +19,8 @@ export class DrugController extends ConvectorController {
     id: string,
     @Param(yup.string())
     name: string,
+    @Param(yup.string())
+    owner: string,
     @Param(yup.number())
     created: number
   ) {
@@ -31,7 +35,7 @@ export class DrugController extends ConvectorController {
     // Initialize the object!
     drug.createdBy = this.sender;
     drug.modifiedBy = this.sender;
-    drug.holder = this.sender;
+    drug.holder = owner;
 
     drug.created = created;
     drug.modified = created;
@@ -53,19 +57,27 @@ export class DrugController extends ConvectorController {
     modified: number
   ) {
     const drug = await Drug.getOne(drugId);
+    // Get the current holder
+    const owner = await Participant.getOne(drug.holder);
 
-    if (drug.holder !== this.sender) {
-      throw new Error('The current holder is the only user capable of transferring the drug in the value chain.');
+    if (!owner || !owner.id || !owner.identities) {
+      throw new Error('Referenced owner participant does not exist in the ledger');
     }
 
-    // Change the holder.
-    drug.holder = to;
+    const ownerCurrentIdentity = owner.identities.find(identity => identity.status === true);
 
-    // Attach the report url. Since the user is the only responsible for the attachment, we don't check anything.
+    if (ownerCurrentIdentity.fingerprint !== this.sender) {
+      // tslint:disable-next-line:max-line-length
+      throw new Error(`The current holder is the only user capable of transferring the drug in the value chain. Tried ${this.sender} but expected ${ownerCurrentIdentity.fingerprint}`);
+    }
 
+    // Attach the report url. Register the identities involved in the
+    // transaction
     const report = {
       url: reportUrl,
-      hash: reportHash
+      hash: reportHash,
+      from: ownerCurrentIdentity.fingerprint,
+      to: this.sender
     };
 
     if (drug.reports) {
@@ -74,10 +86,22 @@ export class DrugController extends ConvectorController {
       drug.reports = [report];
     }
 
+    // Change the holder
+    drug.holder = to;
+
     // Update as modified
     drug.modifiedBy = this.sender;
     drug.modified = modified;
 
     await drug.save();
+  }
+
+  @Invokable()
+  public async getHistory(
+    @Param(yup.string())
+    drugId: string
+  ): Promise<History<Drug>[]> {
+    let item = await Drug.getOne(drugId);
+    return await item.history();
   }
 }

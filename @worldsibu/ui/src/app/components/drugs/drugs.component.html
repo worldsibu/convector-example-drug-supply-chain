@@ -1,72 +1,102 @@
-<h4>List of drugs available in the Blockchain</h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Current Holder</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of items" class="{{item.class}}">
-      <td>{{item.id}}</td>
-      <td>{{item.name}}</td>
-      <td>
-        <div (click)="reveal(item)">
-          <h4>{{item.holder.user}} ({{item.holder.organization}})</h4>
-          <span class="holder" title="Reveal the name of the holder">{{item.holder.id}}</span>
-        </div>
-        <div>
-          <a class="link" (click)="item.transferActive = !item.transferActive  ">
-            Transfer
-          </a>
-          <form class="transfer" *ngIf="item.transferActive">
-            <div class="form-group">
-              <label for="txtTransferTo">Transfer to</label>
-              <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
-                <option selected disabled>Select the user to transfer</option>
-                <option *ngFor="let user of users" value="{{user.id}}">
-                  {{user.user}} ({{user.organization}})
-                </option>
-              </select>
-              <small class="form-text text-muted">
-                The asset will be transferred to address {{item.transfer.to}}
-              </small>
-            </div>
-            <div class="form-group">
-              <label for="txtTransferUrl">Url of the transfer report</label>
-              <input [(ngModel)]="item.transfer.url" id="txtTransferUrl" class="form-control" placeholder="Url of the report" name="txtTransferUrl"
-              />
-            </div>
-            <div class="form-group">
-              <label for="txtTransferHash">Hash of the transfer report</label>
-              <input [(ngModel)]="item.transfer.hash" class="form-control" placeholder="Hash of the report" id="txtTransferHash" name="txtTransferHash"
-              />
-            </div>
-            <button class="btn btn-danger" (click)="transfer(item)">
-              Submit
-            </button>
-            <a class="link" (click)="item.transferActive = !item.transferActive">Cancel</a>
-          </form>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+<div *ngIf="historyItems && historyItems.length >0">
+  <h2>Asset History</h2>
+  <app-history [items]="historyItems"></app-history>
+</div>
+<h4>List of drugs available in the ledger</h4>
 <div class="options">
-  <button class="btn btn-primary" (click)="addNew = !addNew">Add new one</button>
+  <button class="btn btn-primary" (click)="addNew = !addNew">New drug</button>
   <form *ngIf="addNew">
     <div class="form-group">
       <label for="txtId">Unique identifier of the drug</label>
       <input [(ngModel)]="newItemId" class="form-control" placeholder="Unique id" id="txtId" name="txtId" />
     </div>
     <div class="form-group">
-      <label for="txtName">Name of the drug</label>
+      <label for="txtName">Drug Name</label>
       <input [(ngModel)]="newItemName" class="form-control" placeholder="Name" id="txtName" name="txtName" />
     </div>
     <button class="btn btn-danger" (click)="create(newItemId, newItemName)">
-      Submit
+      Create
     </button>
   </form>
+</div>
+
+<div class="card" *ngFor="let item of items">
+  <div class="{{item.class}}">
+    <div>
+      <div>
+        <div>
+          <div style="flex: 0 1 0;">
+            <small>ID: {{item.id}}</small>
+            <h3>Drug: {{item.name}}</h3>
+            <button class="btn btn-info" (click)="history(item.id)">
+              Get history
+            </button>
+          </div>
+          <div>
+            <h5>Reports</h5>
+            <ul class="reports">
+              <li *ngFor="let report of item.reports">
+                <div>
+                  <label>Report Url</label>
+                  {{report.url}}
+                </div>
+                <div>
+                  <label>Report Hash</label>
+                  {{report.hash}}
+                </div>
+                <div style="word-break: break-all">
+                  While transferring from
+                  {{report.from}} to {{report.to}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="double-panel owner-card">
+          <div>
+            <label>
+              <strong>Owner</strong>
+            </label>
+            <h4>{{item.holder.id}} </h4>
+            <small>({{item.holder.msp}})</small>
+          </div>
+          <div>
+            <a class="btn btn-warning" (click)="item.transferActive = !item.transferActive  ">
+              Transfer
+            </a>
+            <form class="transfer" *ngIf="item.transferActive">
+              <div class="form-group">
+                <label for="txtTransferTo">Transfer to</label>
+                <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
+                  <option selected disabled>Select the user to transfer</option>
+                  <option *ngFor="let user of users" value="{{user.id}}">
+                    {{user.id}} ({{user.msp}})
+                  </option>
+                </select>
+                <small class="form-text text-muted">
+                  You will lose ownership of the drug
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="txtTransferUrl">Url of the transfer report</label>
+                <input [(ngModel)]="item.transfer.url" id="txtTransferUrl" class="form-control"
+                  placeholder="Url of the report" name="txtTransferUrl" />
+              </div>
+              <div class="form-group">
+                <label for="txtTransferHash">Hash of the transfer report</label>
+                <input [(ngModel)]="item.transfer.hash" class="form-control" placeholder="Hash of the report"
+                  id="txtTransferHash" name="txtTransferHash" />
+              </div>
+              <button class="btn btn-danger" (click)="transfer(item)">
+                Submit
+              </button>
+              <a class="link" (click)="item.transferActive = !item.transferActive">Cancel</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

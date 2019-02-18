@@ -25,6 +25,7 @@ import { SelfGenContext } from '../selfGenContext';
 export namespace DrugController {
   export async function init(): Promise<DrugControllerClient> {
     const user = process.env.USERCERT || 'user1';
+    const org = process.env.ORGCERT || 'org1';
 
     await SelfGenContext.getClient();
 
@@ -49,7 +50,7 @@ export namespace ParticipantController {
 
   export async function init(): Promise<ParticipantControllerClient> {
     const user = process.env.USERCERT || 'user1';
-    const organization = process.env.ORGCERT || 'org1';
+    const org = process.env.ORGCERT || 'org1';
 
     await SelfGenContext.getClient();
 
@@ -69,12 +70,9 @@ export namespace ParticipantController {
     const participantCtrl = new ParticipantControllerClient(adapter);
 
     const users = await Models.getAllParticipants();
-    if (!users.find(u => u.user === user && u.organization === organization)) {
-      await participantCtrl.register(new Participant({
-        user,
-        organization,
-        created: Date.now()
-      }))
+    console.log(users);
+    if (!users.find(u => u.id === user && u.msp === `${org}MSP`)) {
+      await participantCtrl.register(user)
     }
 
     return participantCtrl;

@@ -9,7 +9,11 @@
       "hoist": true,
       "nohoist": [
         "@types/jasminewd2",
-        "@types/jasmine"
+        "@types/jasmine",
+        "ngx-toastr",
+        "typescript",
+        "pm2",
+        "pm2-*"
       ]
     }
   }

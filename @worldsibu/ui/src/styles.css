@@ -20,17 +20,17 @@ h4 {
 }
 
 a {
-    color: #00a976;
+    color: #F40257;
     text-decoration: underline;
 }
 
 .btn.btn-primary {
-    border-color: #00a976;
+    border-color: #F40257;
     background: #0f1b26;
 }
 
 .btn.btn-primary:focus {
     border-color: #0f1b26;
     color: #0f1b26;
-    background: #00a976;
+    background: #F40257;
 }
