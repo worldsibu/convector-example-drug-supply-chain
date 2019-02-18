@@ -52,6 +52,8 @@ Wake up the environment and install the components.
 
 ```bash
 # Start the development blockchain and install chaincodes
+# A expected error will be shown since the script will try to make a first call
+# to start the chaincode containers.
 npm run restart
 ```
 

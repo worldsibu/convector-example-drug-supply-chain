@@ -57,7 +57,7 @@ export class DrugControllerClient extends ConvectorController {
   public async getHistory(
     
     drugId: string
-  ): Promise<History<Drug>[]>{
+  ): Promise<History<Drug>[]> {
 
           return await this.adapter.invoke(this.name, 'getHistory', this.user, drugId);
         
