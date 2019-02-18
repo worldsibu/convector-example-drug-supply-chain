@@ -15,6 +15,7 @@ export class DrugsComponent implements OnInit {
   server = 'http://localhost:10100';
   error = '';
   items: any[] = [];
+  historyItems = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
@@ -39,9 +40,10 @@ export class DrugsComponent implements OnInit {
 
   transfer(item) {
     if (!item.transfer.to || !item.transfer.hash || !item.transfer.url) {
-      alert('All details for transfer are required!');
+      this.toastr.warning('All details for transfer are required!');
       return;
     }
+    this.toastr.info('Transferring drug');
     this.http.post(`${this.server}/drug/${item.id}/transfer`, {
       to: item.transfer.to,
       reportHash: item.transfer.hash,
@@ -50,10 +52,22 @@ export class DrugsComponent implements OnInit {
       item.holder = (res as any).holder;
       item.transfer = {};
       item.transferActive = false;
-      this.reveal(item);
+      this.toastr.success('Successfully transferred');
+      this._refresh();
     }, err => {
       console.log(err);
-      alert(err.error.responses[0].details);
+      this.toastr.error(err.error.responses[0].details, 'Something happened');
+    });
+  }
+
+  history(id) {
+    this.toastr.info('Getting drug history');
+    this.http.get(`${this.server}/drug/${id}/history`).subscribe(res => {
+      console.log(res);
+      this.historyItems = (res as []);
+    }, err => {
+      console.log(err);
+      this.toastr.error(err.error.responses[0].details, 'Something happened');
     });
   }
 
@@ -63,17 +77,17 @@ export class DrugsComponent implements OnInit {
       return;
     }
 
+    this.toastr.info('Sending transaction...');
+
+
     this.http.post(`${this.server}/drug`, { id, name })
       .subscribe(data => {
+        this.toastr.success('Transaction accepted');
         (data as any).class = 'newItem';
         (data as any).transfer = {};
         this.items.push(<any>data);
-      }, err => alert(JSON.stringify(err)));
-  }
-
-  reveal(item) {
-    console.log(item);
-    item.holderName = this.users.filter(user => user.id === item.holder)[0].name;
+        this._refresh();
+      }, err => this.toastr.error((JSON.stringify(err), 'Error')));
   }
 
   _refresh() {

@@ -11,3 +11,4 @@ fs.writeFileSync(configFilePath, JSON.stringify({
     keyStore: configFile.keyStore.replace(/^.+\/hyperledger-fabric-network/, path.join(homedir, 'hyperledger-fabric-network')),
     networkProfile: configFile.networkProfile.replace(/^.+\/hyperledger-fabric-network/, path.join(homedir, 'hyperledger-fabric-network'))
 }, null, 2));
+console.log('Success')

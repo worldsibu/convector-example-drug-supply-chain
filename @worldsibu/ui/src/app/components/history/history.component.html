@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let item of items">
+   <label>TxId:</label>  {{item.txId}}
+    <div class="value">
+      {{item.value | json}}
+    </div>
+  </li>
+</ul>

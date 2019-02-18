@@ -8,6 +8,7 @@ import {
 
 import { Drug } from './drug.model';
 import { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
+import { History } from '@worldsibu/convector-core-model';
 
 @Controller('drug')
 export class DrugController extends ConvectorController {
@@ -56,7 +57,7 @@ export class DrugController extends ConvectorController {
     modified: number
   ) {
     const drug = await Drug.getOne(drugId);
-
+    // Get the current holder
     const owner = await Participant.getOne(drug.holder);
 
     if (!owner || !owner.id || !owner.identities) {
@@ -66,17 +67,17 @@ export class DrugController extends ConvectorController {
     const ownerCurrentIdentity = owner.identities.find(identity => identity.status === true);
 
     if (ownerCurrentIdentity.fingerprint !== this.sender) {
+      // tslint:disable-next-line:max-line-length
       throw new Error(`The current holder is the only user capable of transferring the drug in the value chain. Tried ${this.sender} but expected ${ownerCurrentIdentity.fingerprint}`);
     }
 
-    // Change the holder.
-    drug.holder = to;
-
-    // Attach the report url. Since the user is the only responsible for the attachment, we don't check anything.
-
+    // Attach the report url. Register the identities involved in the
+    // transaction
     const report = {
       url: reportUrl,
-      hash: reportHash
+      hash: reportHash,
+      from: ownerCurrentIdentity.fingerprint,
+      to: this.sender
     };
 
     if (drug.reports) {
@@ -85,10 +86,22 @@ export class DrugController extends ConvectorController {
       drug.reports = [report];
     }
 
+    // Change the holder
+    drug.holder = to;
+
     // Update as modified
     drug.modifiedBy = this.sender;
     drug.modified = modified;
 
     await drug.save();
+  }
+
+  @Invokable()
+  public async getHistory(
+    @Param(yup.string())
+    drugId: string
+  ): Promise<History<Drug>[]> {
+    let item = await Drug.getOne(drugId);
+    return await item.history();
   }
 }

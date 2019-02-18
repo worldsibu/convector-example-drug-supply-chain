@@ -5,7 +5,6 @@
       "script": "./dist/app.js",
       "node_args": "--inspect=0.0.0.0:9222",
       "env": {
-        "DEBUG": "*"
       },
       "watch": [
         "src",

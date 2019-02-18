@@ -38,7 +38,7 @@ export namespace Models {
     try {
       console.log(Participant.query);
       const result = <ParticipantModel[]>(await Participant.query(Participant, dbName, viewUrl, queryOptions));
-
+      console.log('query ok');
       return await Promise.all(result.map(formatParticipant));
     } catch (err) {
       console.log(err);

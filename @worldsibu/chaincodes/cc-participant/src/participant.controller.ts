@@ -16,7 +16,7 @@ export class ParticipantController extends ConvectorController {
   get fullIdentity(): ClientIdentity {
     const stub = (BaseStorage.current as any).stubHelper;
     return new ClientIdentity(stub.getStub());
-  };
+  }
 
   @Invokable()
   public async register(

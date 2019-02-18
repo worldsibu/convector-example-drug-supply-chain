@@ -6,7 +6,15 @@
   "version": "1.0.0",
   "command": {
     "bootstrap": {
-      "hoist": false
+      "hoist": true,
+      "nohoist": [
+        "@types/jasminewd2",
+        "@types/jasmine",
+        "ngx-toastr",
+        "typescript",
+        "pm2",
+        "pm2-*"
+      ]
     }
   }
 }

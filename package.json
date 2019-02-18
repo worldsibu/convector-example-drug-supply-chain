@@ -41,7 +41,7 @@
     "cc:start": "f() { npm run cc:package; npm run cc:install; }; f",
     "cc:package": "f() { npm run lerna:build; chaincode-manager --config ./org1.chaincode.config.json --output ./chaincode-drug package; }; f",
     "cc:install": "hurl install drug node -P ./chaincode-drug",
-    "cc:upgrade": "f() { hurl upgrade drug node $1 -P ./chaincode-drug ;}; f",
+    "cc:upgrade": "f() { npm run cc:package; hurl upgrade drug node $1 -P ./chaincode-drug ;}; f",
     "cc:initialInvoke": "hurl invoke drug participant_get \"user1\"",
     "================= Views =================": "==================================",
     "vw:install": "./@worldsibu/views/installViews.sh"
