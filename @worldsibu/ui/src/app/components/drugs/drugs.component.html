@@ -1,5 +1,5 @@
 <div *ngIf="historyItems && historyItems.length >0">
-  <h2>Asset History</h2>
+  <h2>Drug Model History</h2>
   <app-history [items]="historyItems"></app-history>
 </div>
 <div class="double-panel">
@@ -20,7 +20,7 @@
           Create
         </button>
       </form>
-      <a href="#" rel="modal:close">Close</a>
+      <a id="closeModal" href="#" rel="modal:close">Close</a>
     </div>
 
     <!-- Link to open the modal -->

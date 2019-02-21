@@ -58,6 +58,8 @@ export class TransportComponent implements OnInit {
         (data as any).class = 'newItem';
         this.items.push(<any>data);
         this._refresh();
+        var closeModal = document.getElementById('closeModal');
+        closeModal.click();
       }, err => this.toastr.error((JSON.stringify(err), 'Error')));
   }
 

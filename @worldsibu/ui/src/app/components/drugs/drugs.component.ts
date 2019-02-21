@@ -92,6 +92,8 @@ export class DrugsComponent implements OnInit {
       (data as any).transfer = {};
       this.items.push(<any>data);
       this._refresh();
+      var closeModal = document.getElementById('closeModal');
+      closeModal.click();
     }, err => this.toastr.error((JSON.stringify(err), 'Error')));
   }
 

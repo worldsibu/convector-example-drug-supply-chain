@@ -10,8 +10,15 @@
   <h4>Identities</h4>
   <ul>
     <li *ngFor="let identity of item.identities">
-      {{identity.fingerprint}}
-      {{identity.status}}
+      <strong *ngIf="identity.status">
+        {{identity.fingerprint}}
+
+      </strong>
+      <span *ngIf="!identity.status">
+        {{identity.fingerprint}}
+
+      </span>
+
     </li>
   </ul>
 
