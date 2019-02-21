@@ -7,7 +7,8 @@ import {
 } from '@worldsibu/convector-core-controller';
 
 import { Drug } from '../src/drug.model';
-import { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
+import { Participant, ParticipantController } from '@worldsibu/convector-example-dsc-cc-participant';
+import { TransportController, Transport } from '@worldsibu/convector-example-dsc-cc-transport';
 import { History } from '@worldsibu/convector-core-model';
 import { ControllerAdapter } from '@worldsibu/convector-core-adapter';
 
@@ -46,10 +47,12 @@ export class DrugControllerClient extends ConvectorController {
     
     reportUrl,
     
+    transport: string,
+    
     modified: number
   ) {
 
-          return await this.adapter.invoke(this.name, 'transfer', this.user, drugId, to, reportHash, reportUrl, modified);
+          return await this.adapter.invoke(this.name, 'transfer', this.user, drugId, to, reportHash, reportUrl, transport, modified);
         
   }
 

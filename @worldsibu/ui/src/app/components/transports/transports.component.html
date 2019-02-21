@@ -1,0 +1,89 @@
+<div class="double-panel">
+  <div>List of transports available in the ledger</div>
+  <div class="text-right">
+    <div id="ex1" class="modal">
+      <form>
+        <div class="form-group">
+          <label for="txtName">Company Id</label>
+          <input [(ngModel)]="newItem.company.id" class="form-control" placeholder="Name" id="txtCompanyId"
+            name="txtCompanyId" />
+        </div>
+        <div class="form-group">
+          <label for="txtName">Company Name</label>
+          <input [(ngModel)]="newItem.company.name" class="form-control" placeholder="Name" id="txtCompanyName"
+            name="txtCompanyName" />
+        </div>
+
+        <div class="form-group">
+          <label for="txtTransport">Transport type</label>
+          <select [(ngModel)]="newItem.transportType" class="form-control" name="txtTransport">
+            <option selected disabled>Transport type</option>
+            <option value="1">Truck</option>
+            <option value="2">Airplane</option>
+            <option value="3">Train</option>
+            <option value="4">Freight</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="txtOwnerId">Owner participant</label>
+          <select [(ngModel)]="newItem.ownerId" class="form-control" name="txtOwnerId">
+            <option selected disabled>Select the owner</option>
+            <option *ngFor="let user of participants" value="{{user.id}}">
+              {{user.id}} ({{user.msp}})
+            </option>
+          </select>
+        </div>
+
+        <button class="btn btn-danger" (click)="create(newItem)">
+          Create
+        </button>
+      </form>
+      <a href="#" rel="modal:close">Close</a>
+    </div>
+
+    <!-- Link to open the modal -->
+    <p><a class="btn btn-primary" href="#ex1" rel="modal:open">New transport</a></p>
+
+  </div>
+</div>
+
+<div *ngIf="!items || items.length === 0">
+  <small>There are not drugs to show...</small>
+</div>
+
+<div class="card" *ngFor="let item of items">
+  <div class="{{item.class}}">
+    <div>
+      <div>
+        <h3>
+          <span *ngIf="item.transportType === 1">
+            <i class="fas fa-truck"></i>
+          </span>
+          <span *ngIf="item.transportType === 2">
+            <i class="fas fa-plane"></i>
+          </span>
+          <span *ngIf="item.transportType === 3">
+            <i class="fas fa-train"></i>
+          </span>
+          <span *ngIf="item.transportType === 4">
+            <i class="fas fa-ship"></i>
+          </span>
+          ID: {{item.id}}</h3>
+        <small>Is active: {{item.active}}</small>
+
+      </div>
+      <div>
+        <div class="double-panel owner-card">
+          <div>
+            <label>
+              <strong>Owner</strong>
+            </label>
+            <h4>{{item.owner.id}} </h4>
+            <small>({{item.owner.msp}})</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

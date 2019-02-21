@@ -6,6 +6,8 @@ dotenv.config();
 import * as express from 'express';
 import { DrugCtrl } from './controllers';
 import * as bodyParser from 'body-parser';
+import { ParticipantCtrl } from './controllers/participant.controller';
+import { TransportCtrl } from './controllers/transport.controller';
 
 const app: express.Application = express();
 const port = process.env.PORT || 10100;
@@ -24,7 +26,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/drug', DrugCtrl);
+app.use('/drugs', DrugCtrl);
+app.use('/transports', TransportCtrl);
+app.use('/participants', ParticipantCtrl);
 
 const user = process.env.USERCERT;
 const org = process.env.ORGCERT;

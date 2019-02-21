@@ -7,12 +7,12 @@ import {
 } from '@worldsibu/convector-core-controller';
 
 import { Drug } from './drug.model';
-import { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
+import { Participant, ParticipantController } from '@worldsibu/convector-example-dsc-cc-participant';
+import { TransportController, Transport } from '@worldsibu/convector-example-dsc-cc-transport';
 import { History } from '@worldsibu/convector-core-model';
 
 @Controller('drug')
 export class DrugController extends ConvectorController {
-
   @Invokable()
   public async create(
     @Param(yup.string())
@@ -32,10 +32,9 @@ export class DrugController extends ConvectorController {
 
     let drug = new Drug(id);
     drug.name = name;
-    // Initialize the object!
     drug.createdBy = this.sender;
     drug.modifiedBy = this.sender;
-    drug.holder = owner;
+    drug.holderId = owner;
 
     drug.created = created;
     drug.modified = created;
@@ -53,30 +52,21 @@ export class DrugController extends ConvectorController {
     reportHash,
     @Param(yup.string())
     reportUrl,
+    @Param(yup.string())
+    transport: string,
     @Param(yup.number())
     modified: number
   ) {
     const drug = await Drug.getOne(drugId);
     // Get the current holder
-    const owner = await Participant.getOne(drug.holder);
+    let participant = await ParticipantController.checkParticipant(
+      drug.holderId, this.sender);
 
-    if (!owner || !owner.id || !owner.identities) {
-      throw new Error('Referenced owner participant does not exist in the ledger');
-    }
-
-    const ownerCurrentIdentity = owner.identities.find(identity => identity.status === true);
-
-    if (ownerCurrentIdentity.fingerprint !== this.sender) {
-      // tslint:disable-next-line:max-line-length
-      throw new Error(`The current holder is the only user capable of transferring the drug in the value chain. Tried ${this.sender} but expected ${ownerCurrentIdentity.fingerprint}`);
-    }
-
-    // Attach the report url. Register the identities involved in the
-    // transaction
+    // Attach the report url. Register the identities involved in the transaction
     const report = {
       url: reportUrl,
       hash: reportHash,
-      from: ownerCurrentIdentity.fingerprint,
+      from: participant.activeIdentity().fingerprint,
       to: this.sender
     };
 
@@ -86,8 +76,13 @@ export class DrugController extends ConvectorController {
       drug.reports = [report];
     }
 
-    // Change the holder
-    drug.holder = to;
+    if( (await Transport.getOne(transport)).ownerId !== to){
+      throw new Error(`Tried to assign a transport that does not belong to participant ${to}`);
+    }
+
+    // Change the holder as well the transport means
+    drug.transportId = transport;
+    drug.holderId = to;
 
     // Update as modified
     drug.modifiedBy = this.sender;

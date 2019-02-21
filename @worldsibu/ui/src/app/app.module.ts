@@ -8,22 +8,36 @@ import { DrugsComponent } from './components/drugs/drugs.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HistoryComponent } from './components/history/history.component';
-
+import { TransportComponent } from './components/transports/transports.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { ParticipantService } from './services/participant.service';
+import { DrugService } from './services/drug.service';
+import { ParticipantComponent } from './components/participants/participants.component';
+import { TransportService } from './services/transport.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     DrugsComponent,
+    TransportComponent,
+    ParticipantComponent,
     HistoryComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    ParticipantService,
+    TransportService,
+    DrugService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

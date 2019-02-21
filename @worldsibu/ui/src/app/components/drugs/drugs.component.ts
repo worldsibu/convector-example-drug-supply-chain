@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-
-
+import { ParticipantService } from '../../services/participant.service';
+import { DrugService } from '../../services/drug.service';
+import { TransportService } from '../../services/transport.service';
 
 @Component({
   selector: 'app-drugs',
@@ -12,26 +13,30 @@ import { ToastrService } from 'ngx-toastr';
   ]
 })
 export class DrugsComponent implements OnInit {
-  server = 'http://localhost:10100';
   error = '';
+  newItem = {};
   items: any[] = [];
   historyItems = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
   addNew = false;
+  transports = [];
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient,
+    private participantSvc: ParticipantService,
+    private transportSvc: TransportService,
+    private drugSvc: DrugService,
+    private toastr: ToastrService) {
   }
 
   async ngOnInit() {
-    setTimeout(() => { this.toastr.success('App started', 'App started') }, 0);
     this._refresh();
     this.users = (await this._loadUsers() as any);
   }
 
   _loadUsers() {
-    return this.http.get(`${this.server}/drug/users`).toPromise();
+    return this.participantSvc.get();
   }
 
   refresh() {
@@ -44,11 +49,12 @@ export class DrugsComponent implements OnInit {
       return;
     }
     this.toastr.info('Transferring drug');
-    this.http.post(`${this.server}/drug/${item.id}/transfer`, {
+
+    this.drugSvc.transfer({
       to: item.transfer.to,
       reportHash: item.transfer.hash,
       reportUrl: item.transfer.url
-    }).subscribe(res => {
+    }).then(res => {
       item.holder = (res as any).holder;
       item.transfer = {};
       item.transferActive = false;
@@ -62,7 +68,7 @@ export class DrugsComponent implements OnInit {
 
   history(id) {
     this.toastr.info('Getting drug history');
-    this.http.get(`${this.server}/drug/${id}/history`).subscribe(res => {
+    this.drugSvc.getHistory(id).then(res => {
       console.log(res);
       this.historyItems = (res as []);
     }, err => {
@@ -71,36 +77,34 @@ export class DrugsComponent implements OnInit {
     });
   }
 
-  create(id, name) {
-    if (!id || !name) {
+  create(item) {
+    if (!item.id || !item.name) {
       alert('Please fill all the form.');
       return;
     }
 
     this.toastr.info('Sending transaction...');
 
-
-    this.http.post(`${this.server}/drug`, { id, name })
-      .subscribe(data => {
-        this.toastr.success('Transaction accepted');
-        (data as any).class = 'newItem';
-        (data as any).transfer = {};
-        this.items.push(<any>data);
-        this._refresh();
-      }, err => this.toastr.error((JSON.stringify(err), 'Error')));
+    this.drugSvc.create(item).then(data => {
+      this.toastr.success('Transaction accepted');
+      (data as any).class = 'newItem';
+      (data as any).transfer = {};
+      this.items.push(<any>data);
+      this._refresh();
+    }, err => this.toastr.error((JSON.stringify(err), 'Error')));
   }
 
   _refresh() {
-    this.http.get(`${this.server}/drug/`)
-      .subscribe((data) => {
-        for (const item of <any[]>(data as any)) {
-          (item as any).transfer = {};
-        }
+    this.drugSvc.get().then((data) => {
+      for (const item of <any[]>(data as any)) {
+        (item as any).transfer = {};
+      }
+      this.items = (data as any);
+      this.toastr.success('Drugs loaded');
+    }, err => {
+      this.error = err;
+    });
 
-        this.items = (data as any);
-        // console.log(this.items);
-      }, err => {
-        this.error = err;
-      });
+    this.transportSvc.get().then(rs => this.transports = (rs as []));
   }
 }

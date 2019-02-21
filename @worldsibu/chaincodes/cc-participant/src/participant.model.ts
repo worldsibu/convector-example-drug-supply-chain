@@ -7,6 +7,7 @@ import {
   Validate
 } from '@worldsibu/convector-core-model';
 
+// tslint:disable-next-line:class-name
 export interface x509Identities {
   status: boolean;
   fingerprint: string;
@@ -16,7 +17,6 @@ export const x509Identities = yup.object<x509Identities>().shape({
   status: yup.boolean().required(),
   fingerprint: yup.string().required()
 });
-
 
 export class Participant extends ConvectorModel<Participant> {
   @ReadOnly()
@@ -33,5 +33,8 @@ export class Participant extends ConvectorModel<Participant> {
 
   @Validate(yup.array(x509Identities))
   public identities: x509Identities[];
-}
 
+  activeIdentity() {
+    return this.identities.find(identity => identity.status === true);
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "@worldsibu/convector-example-dsc-cc-drug",
+  "name": "@worldsibu/convector-example-dsc-cc-transport",
   "version": "1.0.0",
   "description": "",
   "author": "WorldSibu",
@@ -17,13 +17,12 @@
     "prepare": "npm run build",
     "test": "npm run build && mocha -r ts-node/register tests/*.spec.ts --reporter spec",
     "------------ CHAINCODE TASKS ------------": "",
-    "client:generate": "generate-controller-interface -c DrugController"
+    "client:generate": "generate-controller-interface -c TransportController"
   },
   "dependencies": {
     "@worldsibu/convector-core-controller": "1.2.0",
     "@worldsibu/convector-core-model": "1.2.0",
     "@worldsibu/convector-example-dsc-cc-participant": "^1.0.0",
-    "@worldsibu/convector-example-dsc-cc-transport": "^1.0.0",
     "reflect-metadata": "^0.1.12",
     "yup": "^0.24.1"
   },

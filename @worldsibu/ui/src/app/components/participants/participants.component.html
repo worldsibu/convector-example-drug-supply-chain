@@ -1,0 +1,18 @@
+<h2>Registered Participants</h2>
+
+<div *ngIf="!items || items.length === 0">
+  <small>There are not participants to show...</small>
+</div>
+
+<div class="card custom-shadow" *ngFor="let item of items">
+  <h2>{{item.name}}</h2>
+  <small>{{item.msp}}</small>
+  <h4>Identities</h4>
+  <ul>
+    <li *ngFor="let identity of item.identities">
+      {{identity.fingerprint}}
+      {{identity.status}}
+    </li>
+  </ul>
+
+</div>

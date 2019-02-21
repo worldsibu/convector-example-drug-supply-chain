@@ -1,0 +1,24 @@
+{
+  "name": "@worldsibu/convector-example-dsc-cc-utils",
+  "version": "1.0.0",
+  "description": "",
+  "author": "WorldSibu",
+  "license": "Apache-2.0",
+  "main": "./dist/src/index.js",
+  "typings": "./dist/src/index.d.ts",
+  "files": [
+    "dist/*",
+    "client/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
+  },
+  "devDependencies": {
+    "ts-node": "^7.0.0",
+    "typescript": "2.9.2"
+  }
+}

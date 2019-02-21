@@ -22,13 +22,14 @@
     "docker:build": "docker build -t worldsibu/convector-example-dsc .",
     "docker:build:nocache": "docker build -t worldsibu/convector-example-dsc . --no-cache",
     "test": "mocha -r ts-node/register test/*.spec.ts --reporter spec",
-    "userContext": "node -e 'let selfEnroll = require(\"./dist/selfGenContext.js\"); selfEnroll.SelfEnroll.getClient()'"
+    "userContext": "node -e 'let selfEnroll = require(\"./dist/convectorUtils/selfGenContext.js\"); selfEnroll.SelfEnroll.getClient()'"
   },
   "dependencies": {
     "@angular/animations": "^7.2.5",
     "@worldsibu/convector-adapter-fabric": "1.2.0",
     "@worldsibu/convector-example-dsc-cc-drug": "1.0.0",
     "@worldsibu/convector-example-dsc-cc-participant": "1.0.0",
+    "@worldsibu/convector-example-dsc-cc-transport": "^1.0.0",
     "@worldsibu/convector-storage-couchdb": "1.2.0",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",

@@ -24,13 +24,15 @@ a {
     text-decoration: underline;
 }
 
-.btn.btn-primary {
-    border-color: #F40257;
-    background: #0f1b26;
+a.btn {
+    text-decoration: none;
 }
 
-.btn.btn-primary:focus {
-    border-color: #0f1b26;
-    color: #0f1b26;
-    background: #F40257;
+.btn.btn-primary {
+    border-color: #006A9F;
+    background: #006A9F;
+}
+
+.btn.btn-primary:hover {
+    opacity: .8;
 }

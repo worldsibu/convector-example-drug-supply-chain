@@ -1,26 +1,79 @@
-<div class="container-fluid header custom-shadow">
+<div class="container-fluid header">
   <div class="container">
-    <h3>A really simple Drug Supply Chain with
+    <p>A really simple Drug Supply Chain with
       <a href="https://worldsibu.tech/convector" target="_blank">Convector</a>
-    </h3>
+    </p>
   </div>
 </div>
 
 <div class="container-fluid body">
   <div class="container">
+    <ul class="main-menu">
+      <li>
+
+        <a [routerLink]="['/drugs']" routerLinkActive="router-link-active">Drugs</a>
+      </li>
+      <li>
+        <a [routerLink]="['/transports']" routerLinkActive="router-link-active">Transports</a>
+
+      </li>
+      <li>
+
+        <a [routerLink]="['/participants']" routerLinkActive="router-link-active">Participants</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="container-fluid body">
+  <div class="container">
     <div class="row">
       <div class="col-12">
-        <app-drugs></app-drugs>
+        <router-outlet></router-outlet>
       </div>
-      <div class="col-12">
-        <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    </div>
+  </div>
+</div>
+<div class="container-fluid footer">
+  <div class="container">
+    <hr />
+    <p>Made with ❤️ by
+      <a href="https://worldsibu.tech" target="_blank">WorldSibu</a>
+    </p>
+    <p>
+      <a href="http://discord.gg/twRwpWt" target="_blank">
+        Join the Discord Community here!
+      </a>
+    </p>
+
+    <div class="row">
+      <div class="col-6">
+        <ul>
+          <li>
+            <a href="https://worldsibu.tech/convector" target="_blank">📖 More about Convector</a>
+          </li>
+          <li>
+            <a href="https://github.com/convector" target="_blank">Convector on Github</a>
+          </li>
+          <li>
+            <a href="https://medium.com/worldsibu/announcing-convector-a-javascript-framework-for-smart-contract-systems-1053ee972a6d"
+              target="_blank">🎉 Launch announcement 🎉</a>
+          </li>
+          <li>
+            <a href="https://worldsibu.tech/convector/getting-started" target="_blank">📝 Get started!</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+          aria-controls="collapseExample">
           Details on the use case
         </a>
 
         <div class="collapse" id="collapseExample">
           <div class="card card-body">
             <p>
-              The current mono-repo is a simple project to showcase the ease and power of Convector by creating a basic Drug Supply Chain
+              The current mono-repo is a simple project to showcase the ease and power of Convector by creating a basic
+              Drug Supply Chain
               fullstack application example.
             </p>
             <p>
@@ -32,7 +85,8 @@
               <li>Global distribution and manufacturing.</li>
             </ul>
             <p>
-              A few high level reasons on why Blockchain may help here, are the following (for a real application, further analysis is
+              A few high level reasons on why Blockchain may help here, are the following (for a real application,
+              further analysis is
               required):
             </p>
             <ul>
@@ -46,7 +100,8 @@
               The end result:
             </p>
             <ul>
-              <li>You get a drug at the hospital or any drug store and are able to trace it back through the whole value chain.
+              <li>You get a drug at the hospital or any drug store and are able to trace it back through the whole value
+                chain.
                 Sort of like tokenizing the drugs through a value chain.</li>
             </ul>
             <img src="http://www.rmtminc.com/wp-content/uploads/2015/07/pharm_supply_chain-3.jpg" />
@@ -56,37 +111,6 @@
         </div>
 
       </div>
-
     </div>
-  </div>
-</div>
-<div class="container-fluid footer">
-  <div class="container">
-    <hr/>
-    <p>Made with ❤️ by
-      <a href="https://worldsibu.tech" target="_blank">WorldSibu</a>
-    </p>
-    <p>
-      <a href="http://discord.gg/twRwpWt" target="_blank">
-        Join the Discord Community here!
-      </a>
-    </p>
-
-    <ul>
-      <li>
-        <a href="https://worldsibu.tech/convector" target="_blank">📖 More about Convector</a>
-      </li>
-      <li>
-        <a href="https://github.com/convector" target="_blank">Convector on Github</a>
-      </li>
-      <li>
-        <a href="https://medium.com/worldsibu/announcing-convector-a-javascript-framework-for-smart-contract-systems-1053ee972a6d"
-          target="_blank">🎉 Launch announcement 🎉</a>
-      </li>
-      <li>
-        <a href="https://worldsibu.tech/convector/getting-started" target="_blank">📝 Get started!</a>
-      </li>
-    </ul>
-
   </div>
 </div>

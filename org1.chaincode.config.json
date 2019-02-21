@@ -17,6 +17,11 @@
       "name": "@worldsibu/convector-example-dsc-cc-participant",
       "version": "file:./@worldsibu/chaincodes/cc-participant",
       "controller": "ParticipantController"
+    },
+    {
+      "name": "@worldsibu/convector-example-dsc-cc-transport",
+      "version": "file:./@worldsibu/chaincodes/cc-transport",
+      "controller": "TransportController"
     }
   ],
   "policy": {

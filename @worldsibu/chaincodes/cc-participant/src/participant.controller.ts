@@ -42,6 +42,7 @@ export class ParticipantController extends ConvectorController {
       throw new Error('Identity exists already, please call changeIdentity fn for updates');
     }
   }
+
   @Invokable()
   public async get(
     @Param(yup.string())
@@ -52,5 +53,27 @@ export class ParticipantController extends ConvectorController {
       throw new Error(`No identity exists with that ID ${id}`);
     }
     return existing;
+  }
+
+  /**
+   * Check if a user is the same as the identity sending a transaction
+   * @param id Id of the participant to check
+   * @param sender Current `this.sender`
+   */
+  public static async checkParticipant(
+    id: string,
+    sender: string
+  ) {
+    const participant = await Participant.getOne(id);
+    if (!participant || !participant.id || !participant.identities) {
+      throw new Error(`Referenced participant ${id} does not exist in the ledger`);
+    }
+
+    const currentIdentity = participant.activeIdentity();
+    if (currentIdentity.fingerprint !== sender) {
+      // tslint:disable-next-line:max-line-length
+      throw new Error(`Participant does not match identity making the transaction`);
+    }
+    return participant;
   }
 }

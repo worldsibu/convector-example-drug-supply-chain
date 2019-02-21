@@ -20,7 +20,11 @@ export class Drug extends ConvectorModel<Drug> {
   @Required()
   @Validate(yup.string())
   /** Current user owning the drug. */
-  public holder: string;
+  public holderId: string;
+
+  @Validate(yup.string())
+  /** Current user owning the drug. */
+  public transportId: string;
 
   @Validate(yup.array(Report))
   /** Current user owning the drug. */

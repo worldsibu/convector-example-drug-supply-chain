@@ -2,22 +2,35 @@
   <h2>Asset History</h2>
   <app-history [items]="historyItems"></app-history>
 </div>
-<h4>List of drugs available in the ledger</h4>
-<div class="options">
-  <button class="btn btn-primary" (click)="addNew = !addNew">New drug</button>
-  <form *ngIf="addNew">
-    <div class="form-group">
-      <label for="txtId">Unique identifier of the drug</label>
-      <input [(ngModel)]="newItemId" class="form-control" placeholder="Unique id" id="txtId" name="txtId" />
+<div class="double-panel">
+  <div>List of drugs available in the ledger</div>
+  <div class="text-right">
+    <div id="ex1" class="modal">
+      <form>
+        <div class="form-group">
+          <label for="txtId">Unique identifier of the drug</label>
+          <input [(ngModel)]="newItem.id" class="form-control" placeholder="Unique id" id="txtId" name="txtId" />
+        </div>
+        <div class="form-group">
+          <label for="txtName">Drug Name</label>
+          <input [(ngModel)]="newItem.name" class="form-control" placeholder="Name" id="txtName" name="txtName" />
+        </div>
+
+        <button class="btn btn-danger" (click)="create(newItem)">
+          Create
+        </button>
+      </form>
+      <a href="#" rel="modal:close">Close</a>
     </div>
-    <div class="form-group">
-      <label for="txtName">Drug Name</label>
-      <input [(ngModel)]="newItemName" class="form-control" placeholder="Name" id="txtName" name="txtName" />
-    </div>
-    <button class="btn btn-danger" (click)="create(newItemId, newItemName)">
-      Create
-    </button>
-  </form>
+
+    <!-- Link to open the modal -->
+    <p><a class="btn btn-primary" href="#ex1" rel="modal:open">New drug</a></p>
+
+  </div>
+</div>
+
+<div *ngIf="!items || items.length === 0">
+  <small>There are not drugs to show...</small>
 </div>
 
 <div class="card" *ngFor="let item of items">
@@ -89,6 +102,17 @@
                 <input [(ngModel)]="item.transfer.hash" class="form-control" placeholder="Hash of the report"
                   id="txtTransferHash" name="txtTransferHash" />
               </div>
+              <div class="form-group">
+                <label for="txtTransport">Transport</label>
+                <select [(ngModel)]="item.transfer.transportId" class="form-control" name="txtTransport">
+                  <option selected disabled>Select the transport</option>
+                  <option *ngFor="let transport of transports" value="{{transport.id}}">
+                    [{{transport.transportType === 1 ? 'Truck' : (transport.transportType === 2 ?  'Airplane' :  (transport.transportType === 3 ? 'Train' :(transport.transportType === 4 ? 'Freight' : transport.transportType) )) }}]
+                    {{transport.id}}
+                  </option>
+                </select>
+              </div>
+
               <button class="btn btn-danger" (click)="transfer(item)">
                 Submit
               </button>
