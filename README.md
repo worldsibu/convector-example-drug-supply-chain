@@ -90,4 +90,7 @@ npx lerna run start:org1:user3 --scope @worldsibu/convector-example-dsc-server -
 ## Behaviour
 
 * When you create a **drug**, the owner will be set to the current identity of the server.
-* If you transfer a drug you won't be able to transfer it again with the same identity.
+* If you transfer a drug you won't be able to transfer it again with the same identity. You'll need the identity that received it.
+* Transports are associated to identities (participants).
+* When a transfer happens, the target transport need to be associated to the target identity of the transfer.
+* When you launch a server, the server self-enrolls an identity.
