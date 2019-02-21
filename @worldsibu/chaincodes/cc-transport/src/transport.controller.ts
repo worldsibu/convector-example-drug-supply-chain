@@ -14,7 +14,7 @@ import { Company } from './company.model';
 /**
  * The means to transport shipments
  */
-@Controller('drug')
+@Controller('transport')
 export class TransportController extends ConvectorController {
 
   @Invokable()

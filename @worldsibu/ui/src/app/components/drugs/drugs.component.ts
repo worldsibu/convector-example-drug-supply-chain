@@ -50,10 +50,11 @@ export class DrugsComponent implements OnInit {
     }
     this.toastr.info('Transferring drug');
 
-    this.drugSvc.transfer({
+    this.drugSvc.transfer(item.id, {
       to: item.transfer.to,
       reportHash: item.transfer.hash,
-      reportUrl: item.transfer.url
+      reportUrl: item.transfer.url,
+      transportId: item.transfer.transportId,
     }).then(res => {
       item.holder = (res as any).holder;
       item.transfer = {};

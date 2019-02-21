@@ -21,13 +21,8 @@ export class DrugService {
     return this.http.post(`${this.urlDrugs}`, params).toPromise();
   }
 
-  transfer(item) {
-    return this.http.post(`${this.urlDrugs}/transfer`, {
-      to: item.to,
-      reportHash: item.hash,
-      reportUrl: item.url,
-      transport: item.transport
-    }).toPromise();
+  transfer(id, item) {
+    return this.http.post(`${this.urlDrugs}/${id}/transfer`, item).toPromise();
   }
 
   getHistory(id) {
