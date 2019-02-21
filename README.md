@@ -94,3 +94,8 @@ npx lerna run start:org1:user3 --scope @worldsibu/convector-example-dsc-server -
 * Transports are associated to identities (participants).
 * When a transfer happens, the target transport need to be associated to the target identity of the transfer.
 * When you launch a server, the server self-enrolls an identity.
+
+### Smart contract Container logs - Debugging
+
+1. Do `docker ps` in your terminal.
+2. Find the container named `docker ps -f dev-peer0.org2.hurley.lab-drug-1.0` (or if you upgraded the version at the end may vary).
