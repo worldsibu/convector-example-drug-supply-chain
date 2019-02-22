@@ -98,4 +98,4 @@ npx lerna run start:org1:user3 --scope @worldsibu/convector-example-dsc-server -
 ### Smart contract Container logs - Debugging
 
 1. Do `docker ps` in your terminal.
-2. Find the container named `docker ps -f dev-peer0.org2.hurley.lab-drug-1.0` (or if you upgraded the version at the end may vary).
+2. Find the container named `docker logs -f dev-peer0.org2.hurley.lab-drug-1.0` (or if you upgraded the version at the end may vary).
