@@ -2,10 +2,7 @@ import * as crypto from 'crypto';
 import { Router, Request, Response } from 'express';
 
 import {
-  ModelHelpers,
-  InitDrugController, InitTransportController,
-  InitParticipantController,
-  Env
+  ModelHelpers, InitTransportController
 } from '../convectorUtils';
 
 const router: Router = Router();

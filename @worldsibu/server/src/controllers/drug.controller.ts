@@ -3,9 +3,7 @@ import { Router, Request, Response } from 'express';
 
 import {
   ModelHelpers,
-  InitDrugController, InitTransportController,
-  InitParticipantController,
-  Env
+  InitDrugController
 } from '../convectorUtils';
 import { InitServerIdentity } from '../convectorUtils/convectorControllers';
 
