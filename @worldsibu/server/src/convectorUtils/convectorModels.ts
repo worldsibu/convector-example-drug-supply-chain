@@ -8,7 +8,7 @@ export { Drug } from '@worldsibu/convector-example-dsc-cc-drug';
 export { Transport } from '@worldsibu/convector-example-dsc-cc-transport';
 export { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
 
-import { Env } from './env';
+import { channel, drugCC } from './env';
 
 /**
  * Route to the CouchDB
@@ -37,8 +37,7 @@ export namespace ModelHelpers {
   }
 
   export async function getAllDrugs() {
-    const channel = Env.channel;
-    const cc = Env.drugCC;
+    const cc = drugCC;
     const dbName = `${channel}_${cc}`;
     const viewUrl = '_design/drugs/_view/all';
 
@@ -58,8 +57,7 @@ export namespace ModelHelpers {
   }
 
   export async function getAllTransport() {
-    const channel = Env.channel;
-    const cc = Env.drugCC;
+    const cc = drugCC;
     const dbName = `${channel}_${cc}`;
     const viewUrl = '_design/transports/_view/all';
 
@@ -79,8 +77,7 @@ export namespace ModelHelpers {
   }
 
   export async function getAllParticipants() {
-    const channel = Env.channel;
-    const cc = Env.drugCC;
+    const cc = drugCC;
     const dbName = `${channel}_${cc}`;
     const viewUrl = '_design/participants/_view/all';
 

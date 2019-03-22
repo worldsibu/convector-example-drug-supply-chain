@@ -48,20 +48,17 @@
   },
   "devDependencies": {
     "lerna": "^2.11.0",
-    "npm-run-all": "^4.1.3",
-    "@worldsibu/convector-tool-chaincode-manager": "1.2.0",
-    "@worldsibu/convector-tool-dev-env": "1.2.0",
     "@types/mocha": "^5.2.5",
     "@types/chai": "^4.1.4",
+    "npm-run-all": "^4.1.3",
     "@types/node": "^10.5.2",
     "@types/yup": "^0.24.7",
     "@types/dotenv": "^4.0.3",
     "@types/express": "^4.16.0",
     "@types/bytebuffer": "^5.0.37",
     "fabric-ca-client": "~1.1.2",
-    "fabric-client": "~1.1.2"
-  },
-  "dependencies": {
-    "@worldsibu/hurley": "^0.5.0"
+    "fabric-client": "~1.1.2",
+    "@worldsibu/convector-platform-fabric": "~1.3.0",
+    "@worldsibu/hurley": "~1.0.0"
   }
 }

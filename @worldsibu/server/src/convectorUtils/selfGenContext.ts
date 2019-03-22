@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { join } from 'path';
 import * as Client from 'fabric-client';
 import { IEnrollmentRequest, IRegisterRequest } from 'fabric-ca-client';
+import { keyStore } from './env';
 
 export type UserParams = IRegisterRequest;
 export type AdminParams = IEnrollmentRequest;
@@ -16,7 +17,7 @@ export namespace SelfGenContext {
 
   export async function getClient() {
     // Check if needed
-    const contextPath = join(process.env.KEYSTORE + '/' + process.env.USERCERT);
+    const contextPath = join(keyStore + '/' + process.env.USERCERT);
 
     fs.readFile(contextPath, 'utf8', async function (err, data) {
       if (err) {

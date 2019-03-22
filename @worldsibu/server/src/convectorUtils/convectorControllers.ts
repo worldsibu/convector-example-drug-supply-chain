@@ -12,16 +12,18 @@
  */
 import { resolve } from 'path';
 import { FabricControllerAdapter } from '@worldsibu/convector-adapter-fabric';
-import { DrugControllerClient } from '@worldsibu/convector-example-dsc-cc-drug/dist/client';
-import { TransportControllerClient } from '@worldsibu/convector-example-dsc-cc-transport/dist/client';
-import { ParticipantControllerClient, Participant } from '@worldsibu/convector-example-dsc-cc-participant/dist/client';
+import { DrugController } from '@worldsibu/convector-example-dsc-cc-drug';
+import { TransportController } from '@worldsibu/convector-example-dsc-cc-transport';
+import { ParticipantController, Participant } from '@worldsibu/convector-example-dsc-cc-participant';
 import { SelfGenContext } from './selfGenContext';
 import { ModelHelpers } from './convectorModels';
+import { ConvectorControllerClient, ClientFactory } from '@worldsibu/convector-core';
+import { keyStore, networkProfile } from './env';
 
 const user = process.env.USERCERT || 'user1';
 const org = process.env.ORGCERT || 'org1';
 
-async function InitFabricController() {
+async function InitFabricAdapter() {
   await SelfGenContext.getClient();
 
   const adapter = new FabricControllerAdapter({
@@ -30,8 +32,8 @@ async function InitFabricController() {
     // set it later to enable Mutual TLS
     channel: process.env.CHANNEL,
     chaincode: process.env.CHAINCODE,
-    keyStore: resolve(__dirname, process.env.KEYSTORE),
-    networkProfile: resolve(__dirname, process.env.NETWORKPROFILE),
+    keyStore: resolve(__dirname, keyStore),
+    networkProfile: resolve(__dirname, networkProfile),
     userMspPath: process.env.KEYSTORE
   });
 
@@ -42,14 +44,14 @@ async function InitFabricController() {
  * Building this adapter allows you to communicate with the
  * test env created by `hurley`.
  */
-export async function InitDrugController(): Promise<DrugControllerClient> {
-  return new DrugControllerClient(await InitFabricController());
+export async function InitDrugController(): Promise<ConvectorControllerClient<DrugController>> {
+  return ClientFactory(DrugController, await InitFabricAdapter());
 }
-export async function InitTransportController(): Promise<TransportControllerClient> {
-  return new TransportControllerClient(await InitFabricController());
+export async function InitTransportController(): Promise<ConvectorControllerClient<TransportController>> {
+  return ClientFactory(TransportController, await InitFabricAdapter());
 }
-export async function InitParticipantController(): Promise<ParticipantControllerClient> {
-  return new ParticipantControllerClient(await InitFabricController());
+export async function InitParticipantController(): Promise<ConvectorControllerClient<ParticipantController>> {
+  return ClientFactory(ParticipantController, await InitFabricAdapter());
 }
 export async function InitServerIdentity() {
   const users = await ModelHelpers.getAllParticipants();

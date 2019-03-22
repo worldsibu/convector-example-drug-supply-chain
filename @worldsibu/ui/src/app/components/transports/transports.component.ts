@@ -14,7 +14,7 @@ import { TransportService } from '../../services/transport.service';
 export class TransportComponent implements OnInit {
   error = '';
   items: any[] = [];
-  newItem = {
+  newItem: any = {
     company: {}
   };
   historyItems = [];

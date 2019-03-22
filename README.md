@@ -37,15 +37,6 @@ npm i
 node ./update-paths.js
 ```
 
-### Build the chaincodes
-
-Build the chaincode (running `npm i` already did this for you) but if you make changes in your chaincodes, be sure to run this again:
-
-```bash
-npx lerna run build --scope @worldsibu/convector-example-dsc-cc-drug
-npx lerna run build --scope @worldsibu/convector-example-dsc-cc-participant
-```
-
 ### Run the example
 
 Wake up the environment and install the components.
@@ -68,7 +59,7 @@ npx lerna run start --scope @worldsibu/convector-example-dsc-ui --stream
 
 Go to `localhost:4200` and use the application!
 
-Since the "user" running the server is a blockchain identity coming from a certificate, to make it easy to switch between users you can use the scripts:
+Access the CouchDB here: http://localhost:5084/_utils/#database/ch1_drug/_all_docs
 
 ## Multiple users (transfer and other functions)
 
@@ -76,9 +67,9 @@ To have multiple users registered in the network you need to start the server pe
 
 ### What happens
 
-A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with 10010 port therefore, the same front end will be used but it will call a different instance of the server source code. 
+A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with 10010 port therefore, the same front end will be used but it will call a different instance of the server source code.
 
-### Run them
+### Run as other user
 
 ```bash
 # Start the server as the first user of the org 1

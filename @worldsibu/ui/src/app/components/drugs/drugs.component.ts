@@ -14,14 +14,14 @@ import { TransportService } from '../../services/transport.service';
 })
 export class DrugsComponent implements OnInit {
   error = '';
-  newItem = {};
+  newItem: any = {};
   items: any[] = [];
-  historyItems = [];
+  historyItems: any[] = [];
   // This could be dynamic since we can know what users
   // are in the blockchain
   users: any[];
   addNew = false;
-  transports = [];
+  transports: any[] = [];
 
   constructor(private http: HttpClient,
     private participantSvc: ParticipantService,

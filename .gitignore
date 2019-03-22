@@ -72,3 +72,5 @@ client/
 # Generated chaincode artifact
 chaincode-*
 chaincode.zip
+
+chaincode
