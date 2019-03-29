@@ -85,7 +85,7 @@
                 <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
                   <option selected disabled>Select the user to transfer</option>
                   <option *ngFor="let user of users" value="{{user.id}}">
-                    {{user.id}} ({{user.msp}})
+                    {{user.id}} - {{user.name}} ({{user.msp}})
                   </option>
                 </select>
                 <small class="form-text text-muted">

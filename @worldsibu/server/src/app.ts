@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import { ParticipantCtrl } from './controllers/participant.controller';
 import { TransportCtrl } from './controllers/transport.controller';
 import { userCert, orgCert, keyStore, networkProfile, channel, drugCC, couchDBView, couchDBProtocol, couchDBHost, couchDBPort, port } from './convectorUtils';
+import { ServerCtrl } from './controllers/server.controller';
 
 const app: express.Application = express();
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/server', ServerCtrl);
 app.use('/drugs', DrugCtrl);
 app.use('/transports', TransportCtrl);
 app.use('/participants', ParticipantCtrl);

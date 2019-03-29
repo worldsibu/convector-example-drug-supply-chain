@@ -6,7 +6,7 @@
 
 <div class="card custom-shadow" *ngFor="let item of items">
   <h2>{{item.name}}</h2>
-  <small>{{item.msp}}</small>
+  <small>{{item.id}} ({{item.msp}})</small>
   <h4>Identities</h4>
   <ul>
     <li *ngFor="let identity of item.identities">

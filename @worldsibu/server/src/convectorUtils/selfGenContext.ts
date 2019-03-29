@@ -23,7 +23,7 @@ export namespace SelfGenContext {
       if (err) {
         console.log(`Context in ${contextPath} doesn't exist. Make sure that path resolves to your key stores folder`);
       } else {
-        console.log('Context exists');
+        console.log('Context path with cryptographic materiales exists');
       }
     });
 

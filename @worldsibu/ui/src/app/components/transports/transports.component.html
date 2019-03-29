@@ -30,7 +30,7 @@
           <select [(ngModel)]="newItem.ownerId" class="form-control" name="txtOwnerId">
             <option selected disabled>Select the owner</option>
             <option *ngFor="let user of participants" value="{{user.id}}">
-              {{user.id}} ({{user.msp}})
+              {{user.id}} - {{user.name}} ({{user.msp}})
             </option>
           </select>
         </div>

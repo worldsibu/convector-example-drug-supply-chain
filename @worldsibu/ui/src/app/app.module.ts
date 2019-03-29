@@ -15,6 +15,7 @@ import { ParticipantService } from './services/participant.service';
 import { DrugService } from './services/drug.service';
 import { ParticipantComponent } from './components/participants/participants.component';
 import { TransportService } from './services/transport.service';
+import { ServerIdentityComponent } from './components/serverIdentity/serverIdentity.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TransportService } from './services/transport.service';
     DrugsComponent,
     TransportComponent,
     ParticipantComponent,
-    HistoryComponent
+    HistoryComponent,
+    ServerIdentityComponent
   ],
   imports: [
     RouterModule,

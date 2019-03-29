@@ -18,7 +18,7 @@ import { ParticipantController, Participant } from '@worldsibu/convector-example
 import { SelfGenContext } from './selfGenContext';
 import { ModelHelpers } from './convectorModels';
 import { ConvectorControllerClient, ClientFactory } from '@worldsibu/convector-core';
-import { keyStore, networkProfile, userCert, channel, drugCC, orgCert } from './env';
+import { keyStore, networkProfile, userCert, channel, drugCC, orgCert, identity } from './env';
 
 
 async function InitFabricAdapter() {
@@ -52,11 +52,11 @@ export async function InitParticipantController(): Promise<ConvectorControllerCl
   return ClientFactory(ParticipantController, await InitFabricAdapter());
 }
 export async function InitServerIdentity() {
-  const users = await ModelHelpers.getAllParticipants();
-  if (!users.find(u => u.id === userCert && u.msp === `${orgCert}MSP`)) {
-    console.log('Need to register server identity');
-    (await InitParticipantController()).register(userCert);
-    console.log('Server identity registered');
+  const res = await (await InitParticipantController()).get(identity);
+  const serverIdentity = new Participant(res).toJSON();
+
+  if (!serverIdentity || !serverIdentity.id) {
+    console.log('Server identity not found, make sure to enroll it or seed data');
   } else {
     console.log('Server identity found');
   }
