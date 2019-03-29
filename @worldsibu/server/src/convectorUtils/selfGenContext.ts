@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { join } from 'path';
 import * as Client from 'fabric-client';
 import { IEnrollmentRequest, IRegisterRequest } from 'fabric-ca-client';
-import { keyStore } from './env';
+import { keyStore, userCert } from './env';
 
 export type UserParams = IRegisterRequest;
 export type AdminParams = IEnrollmentRequest;
@@ -17,50 +17,11 @@ export namespace SelfGenContext {
 
   export async function getClient() {
     // Check if needed
-    const contextPath = join(keyStore + '/' + process.env.USERCERT);
+    const contextPath = join(keyStore + '/' + userCert);
 
     fs.readFile(contextPath, 'utf8', async function (err, data) {
       if (err) {
-        // doesnt exist! Create it.
-        const client = new Client();
-
-        console.log('Setting up the cryptoSuite ..');
-
-        // ## Setup the cryptosuite (we are using the built in default s/w based implementation)
-        const cryptoSuite = Client.newCryptoSuite();
-        cryptoSuite.setCryptoKeyStore(Client.newCryptoKeyStore({
-          path: process.env.KEYSTORE
-        }));
-
-        client.setCryptoSuite(cryptoSuite);
-
-        console.log('Setting up the keyvalue store ..');
-
-        // ## Setup the default keyvalue store where the state will be stored
-        const store = await Client.newDefaultKeyValueStore({
-          path: process.env.KEYSTORE
-        });
-
-        client.setStateStore(store);
-
-        console.log('Creating the admin user context ..');
-
-        const privateKeyFile = fs.readdirSync(process.env.KEYSTORE + '/keystore')[0];
-
-        // ###  GET THE NECESSRY KEY MATERIAL FOR THE ADMIN OF THE SPECIFIED ORG  ##
-        const cryptoContentOrgAdmin: IdentityFiles = {
-          privateKey: process.env.KEYSTORE + '/keystore/' + privateKeyFile,
-          signedCert: process.env.KEYSTORE + '/signcerts/cert.pem'
-        };
-
-        await client.createUser({
-          username: process.env.USERCERT,
-          mspid: `${process.env.ORGCERT}MSP`,
-          cryptoContent: cryptoContentOrgAdmin,
-          skipPersistence: false
-        });
-
-        return client;
+        console.log(`Context in ${contextPath} doesn't exist. Make sure that path resolves to your key stores folder`);
       } else {
         console.log('Context exists');
       }

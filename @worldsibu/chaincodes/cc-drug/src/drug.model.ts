@@ -4,8 +4,9 @@ import {
   ReadOnly,
   Required,
   Validate,
-  Default
-} from '@worldsibu/convector-core-model';
+  Default,
+  FlatConvectorModel
+} from '@worldsibu/convector-core';
 import { Report } from './report.model';
 
 export class Drug extends ConvectorModel<Drug> {
@@ -26,9 +27,9 @@ export class Drug extends ConvectorModel<Drug> {
   /** Current user owning the drug. */
   public transportId: string;
 
-  @Validate(yup.array(Report))
+  @Validate(yup.array(Report.schema()))
   /** Current user owning the drug. */
-  public reports: Array<Report>;
+  public reports: Array<FlatConvectorModel<Report>>;
 
   @Validate(yup.number())
   /** Date in which it was modified. */

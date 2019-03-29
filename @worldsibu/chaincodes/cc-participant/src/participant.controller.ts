@@ -5,8 +5,8 @@ import {
   ConvectorController,
   Invokable,
   Param
-} from '@worldsibu/convector-core-controller';
-import { BaseStorage } from '@worldsibu/convector-core-storage';
+} from '@worldsibu/convector-core';
+import { BaseStorage } from '@worldsibu/convector-core';
 
 import { Participant } from './participant.model';
 import { ClientIdentity } from 'fabric-shim';

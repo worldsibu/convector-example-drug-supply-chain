@@ -1,4 +1,4 @@
-import { BaseStorage } from '@worldsibu/convector-core-storage';
+import { BaseStorage } from '@worldsibu/convector-core';
 import { CouchDBStorage } from '@worldsibu/convector-storage-couchdb';
 import { Transport as TransportModel, Transport } from '@worldsibu/convector-example-dsc-cc-transport';
 import { Drug as DrugModel } from '@worldsibu/convector-example-dsc-cc-drug';
@@ -8,16 +8,16 @@ export { Drug } from '@worldsibu/convector-example-dsc-cc-drug';
 export { Transport } from '@worldsibu/convector-example-dsc-cc-transport';
 export { Participant } from '@worldsibu/convector-example-dsc-cc-participant';
 
-import { channel, drugCC } from './env';
+import { channel, drugCC, couchDBHost, couchDBProtocol, couchDBPort, couchDBView } from './env';
 
 /**
  * Route to the CouchDB
  */
 BaseStorage.current = new CouchDBStorage({
-  host: process.env.COUCHDB_HOST,
-  protocol: process.env.COUCHDB_PROTOCOL,
-  port: process.env.COUCHDB_PORT
-}, process.env.COUCHDBVIEW);
+  host: couchDBHost,
+  protocol: couchDBProtocol,
+  port: couchDBPort
+}, couchDBView);
 
 export namespace ModelHelpers {
   export async function formatDrug(drug: DrugModel): Promise<any> {

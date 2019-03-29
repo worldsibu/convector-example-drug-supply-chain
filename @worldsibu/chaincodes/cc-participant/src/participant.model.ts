@@ -1,11 +1,10 @@
 import * as yup from 'yup';
 import {
   ConvectorModel,
-  Default,
   ReadOnly,
   Required,
   Validate
-} from '@worldsibu/convector-core-model';
+} from '@worldsibu/convector-core';
 
 // tslint:disable-next-line:class-name
 export interface x509Identities {

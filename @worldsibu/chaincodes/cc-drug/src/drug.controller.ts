@@ -4,15 +4,16 @@ import {
   ConvectorController,
   Invokable,
   Param
-} from '@worldsibu/convector-core-controller';
+} from '@worldsibu/convector-core';
+import { ChaincodeTx } from '@worldsibu/convector-core-chaincode';
 
 import { Drug } from './drug.model';
-import { Participant, ParticipantController } from '@worldsibu/convector-example-dsc-cc-participant';
-import { TransportController, Transport } from '@worldsibu/convector-example-dsc-cc-transport';
-import { History } from '@worldsibu/convector-core-model';
+import { ParticipantController } from '@worldsibu/convector-example-dsc-cc-participant';
+import { Transport } from '@worldsibu/convector-example-dsc-cc-transport';
+import { History } from '@worldsibu/convector-core';
 
 @Controller('drug')
-export class DrugController extends ConvectorController {
+export class DrugController extends ConvectorController<ChaincodeTx> {
   @Invokable()
   public async create(
     @Param(yup.string())
@@ -76,7 +77,7 @@ export class DrugController extends ConvectorController {
       drug.reports = [report];
     }
 
-    if( (await Transport.getOne(transport)).ownerId !== to){
+    if ((await Transport.getOne(transport)).ownerId !== to) {
       throw new Error(`Tried to assign a transport that does not belong to participant ${to}`);
     }
 

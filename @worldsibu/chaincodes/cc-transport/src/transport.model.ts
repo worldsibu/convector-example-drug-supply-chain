@@ -6,7 +6,7 @@ import {
   Validate,
   Default,
   FlatConvectorModel
-} from '@worldsibu/convector-core-model';
+} from '@worldsibu/convector-core';
 import { Company } from './company.model';
 
 export class Transport extends ConvectorModel<Transport> {

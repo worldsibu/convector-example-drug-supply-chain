@@ -3,7 +3,8 @@ import { Router, Request, Response } from 'express';
 
 import {
   ModelHelpers,
-  InitDrugController
+  InitDrugController,
+  userCert
 } from '../convectorUtils';
 import { InitServerIdentity } from '../convectorUtils/convectorControllers';
 
@@ -77,7 +78,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   try {
     let cntrl = await InitDrugController();
-    await cntrl.create(id, name, process.env.USERCERT, Date.now());
+    await cntrl.create(id, name, userCert, Date.now());
     // Return the newly created drug
     res.send(await ModelHelpers.formatDrug(await ModelHelpers.Drug.getOne(fId)));
   } catch (err) {

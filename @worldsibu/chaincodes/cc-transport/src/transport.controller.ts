@@ -4,11 +4,11 @@ import {
   ConvectorController,
   Invokable,
   Param
-} from '@worldsibu/convector-core-controller';
+} from '@worldsibu/convector-core';
 
 import { Transport } from './transport.model';
 import { ParticipantController } from '@worldsibu/convector-example-dsc-cc-participant';
-import { History } from '@worldsibu/convector-core-model';
+import { History } from '@worldsibu/convector-core';
 import { Company } from './company.model';
 
 /**

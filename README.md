@@ -30,8 +30,6 @@ The end result:
 
 ### Install dependencies
 
-First rename `./@worldsibu/server/.env-default` to `./@worldsibu/server/.env` and change `KEYSTORE` and `NETWORKPROFILE` vars with your $HOME path accordingly. If you don't know where it is run `echo $HOME`
-
 ```bash
 npm i
 node ./update-paths.js
@@ -43,7 +41,7 @@ Wake up the environment and install the components.
 
 ```bash
 # Start the development blockchain and install chaincodes
-# A expected error will be shown since the script will try to make a first call
+# *An expected error will be shown* since the script will try to make a first call
 # to start the chaincode containers.
 npm run restart
 ```
