@@ -26,6 +26,31 @@ The end result:
 
 * You get a drug at the hospital or any drug store and are able to trace it back through the whole value chain. Sort of like tokenizing the drugs through a value chain.
 
+## Tech Stack
+
+### Development
+
+* Lerna
+* Docker
+
+### Blockchain
+
+* NodeJS
+  * Convector
+
+### Back end
+
+* NodeJS
+  * ExpressJS
+  * Convector
+
+### Front end
+
+* Angular 7
+  * Vanilla CSS
+  * Convector
+  * Mobx
+
 ## Run the project
 
 ### Install dependencies
@@ -43,7 +68,10 @@ Wake up the environment and install the components.
 # Start the development blockchain and install chaincodes
 # *An expected error will be shown* since the script will try to make a first call
 # to start the chaincode containers.
-npm run restart
+npm run start
+
+# Seed some participants in the Blockchain
+npm run seed
 ```
 
 Run the project (Servers will auto-enroll with the participant chaincode).
@@ -61,28 +89,68 @@ Access the CouchDB here: http://localhost:5084/_utils/#database/ch1_drug/_all_do
 
 ## Multiple users (transfer and other functions)
 
-To have multiple users registered in the network you need to start the server per each user that will be available with these example scripts 👇
+To have multiple users registered in the network you need to start the server with each user (certificate/wallet) that will be available with these example scripts 👇
 
 ### What happens
 
-A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with 10010 port therefore, the same front end will be used but it will call a different instance of the server source code.
+A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with 10010 port **therefore** the same front end will be used but it will call a different instance of the server source code.
 
 ### Run as other user
 
-```bash
-# Start the server as the first user of the org 1
-npx lerna run start:org1:user2 --scope @worldsibu/convector-example-dsc-server --stream
-# Start the server as the second user of the org 1
-npx lerna run start:org1:user3 --scope @worldsibu/convector-example-dsc-server --stream
+The options available are:
+
+```json
+[
+  {
+    "certId": "user1",
+    "certOrg": "org1",
+    "id": "aa001"
+  },
+  {
+    "certId": "user2",
+    "certOrg": "org1",
+    "id": "aa002"
+  },
+  {
+    "certId": "user3",
+    "certOrg": "org1",
+    "id": "aa003"
+  },
+  {
+    "certId": "user1",
+    "certOrg": "org2",
+    "id": "aa004"
+  },
+  {
+    "certId": "user2",
+    "certOrg": "org2",
+    "id": "aa005"
+  },
+  {
+    "certId": "user3",
+    "certOrg": "org2",
+    "id": "aa006"
+  },
+]
 ```
 
-## Behaviour
+Run the server:
+
+```bash
+# Stop the current server and run
+# Start the server as the second user "aa002"
+IDENTITY=aa002 npx lerna run start:dev --scope @worldsibu/convector-example-dsc-server --stream
+
+# Stop the current server and run
+# Start the server as the second user "aa003"
+IDENTITY=aa003 npx lerna run start:dev --scope @worldsibu/convector-example-dsc-server --stream
+```
+
+## Logic of this example
 
 * When you create a **drug**, the owner will be set to the current identity of the server.
-* If you transfer a drug you won't be able to transfer it again with the same identity. You'll need the identity that received it.
-* Transports are associated to identities (participants).
-* When a transfer happens, the target transport need to be associated to the target identity of the transfer.
-* When you launch a server, the server self-enrolls an identity.
+* If you transfer a drug you won't be able to transfer it again with the same identity (as it will change ownership).
+* When a transfer happens, the target's transport needs to be associated to the target identity of the transfer (or it will throw an error).
 
 ### Smart contract Container logs - Debugging
 
