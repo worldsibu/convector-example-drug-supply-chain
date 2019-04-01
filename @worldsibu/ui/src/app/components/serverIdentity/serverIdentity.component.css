@@ -1,0 +1,11 @@
+.wrapper {
+    background: #222;
+}
+
+.wrapper .container {
+    padding: 12px 0;
+}
+
+.wrapper span {
+    color: #ffffff;
+}

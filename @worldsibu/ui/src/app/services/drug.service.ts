@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DrugService {
-  url = 'http://localhost:10100';
-  urlDrugs = `${this.url}/drugs`;
+  urlDrugs = `${environment.serverUrl}/drugs`;
 
   constructor(
     private http: HttpClient,

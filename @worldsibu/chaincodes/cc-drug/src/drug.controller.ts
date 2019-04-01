@@ -67,8 +67,8 @@ export class DrugController extends ConvectorController<ChaincodeTx> {
     const report = {
       url: reportUrl,
       hash: reportHash,
-      from: participant.activeIdentity().fingerprint,
-      to: this.sender
+      from: drug.holderId,
+      to: to
     };
 
     if (drug.reports) {

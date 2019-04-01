@@ -16,7 +16,6 @@ import { DrugController } from '@worldsibu/convector-example-dsc-cc-drug';
 import { TransportController } from '@worldsibu/convector-example-dsc-cc-transport';
 import { ParticipantController, Participant } from '@worldsibu/convector-example-dsc-cc-participant';
 import { SelfGenContext } from './selfGenContext';
-import { ModelHelpers } from './convectorModels';
 import { ConvectorControllerClient, ClientFactory } from '@worldsibu/convector-core';
 import { keyStore, networkProfile, userCert, channel, drugCC, orgCert, identity } from './env';
 

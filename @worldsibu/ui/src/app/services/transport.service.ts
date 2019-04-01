@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TransportService {
-  url = 'http://localhost:10100';
-  urlTransports = `${this.url}/transports`;
+  urlTransports = `${environment.serverUrl}/transports`;
 
   constructor(
     private http: HttpClient,

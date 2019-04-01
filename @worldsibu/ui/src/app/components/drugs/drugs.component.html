@@ -3,7 +3,7 @@
   <app-history [items]="historyItems"></app-history>
 </div>
 <div class="double-panel">
-  <div>List of drugs available in the ledger</div>
+  <h2>List of drugs available in the ledger</h2>
   <div class="text-right">
     <div id="ex1" class="modal">
       <form>
@@ -33,91 +33,101 @@
   <small>There are not drugs to show...</small>
 </div>
 
-<div class="card" *ngFor="let item of items">
+<div class="card drug-card" *ngFor="let item of items">
   <div class="{{item.class}}">
     <div>
       <div>
         <div>
-          <div style="flex: 0 1 0;">
-            <small>ID: {{item.id}}</small>
-            <h3>Drug: {{item.name}}</h3>
-            <button class="btn btn-info" (click)="history(item.id)">
-              Get history
-            </button>
+          <div class="double-panel">
+            <div>
+              <small>ID: {{item.id}}</small>
+              <h3>Drug Name: {{item.name}}</h3>
+              <button class="btn btn-info" (click)="history(item.id)">
+                Get history
+              </button>
+            </div>
+            <div class="owner-card">
+              <div class="double-panel ">
+                <div>
+                  <label>
+                    <strong>Owner</strong>
+                  </label>
+                  <h4>{{item.holder.id}} </h4>
+                  <small>({{item.holder.msp}})</small>
+                </div>
+                <div>
+                  <a class="btn btn-warning" (click)="item.transferActive = !item.transferActive  ">
+                    Transfer
+                  </a>
+
+                </div>
+              </div>
+              <div>
+                <form class="transfer" *ngIf="item.transferActive">
+                  <div class="form-group">
+                    <label for="txtTransferTo">Transfer to</label>
+                    <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
+                      <option selected disabled>Select the user to transfer</option>
+                      <option *ngFor="let user of users" value="{{user.id}}">
+                        {{user.id}} - {{user.name}} ({{user.msp}})
+                      </option>
+                    </select>
+                    <small class="form-text text-muted">
+                      You will lose ownership of the drug
+                    </small>
+                  </div>
+                  <div class="form-group">
+                    <label for="txtTransport">Transport</label>
+                    <select [(ngModel)]="item.transfer.transportId" class="form-control" name="txtTransport">
+                      <option selected disabled>Select the transport</option>
+                      <option *ngFor="let transport of transports" value="{{transport.id}}">
+                        [{{transport.id}}] a
+                        [{{transport.transportType === 1 ? 'Truck' : (transport.transportType === 2 ?  'Airplane' :  (transport.transportType === 3 ? 'Train' :(transport.transportType === 4 ? 'Freight' : transport.transportType) )) }}]
+                        from
+                        {{transport.owner.id}}
+
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="txtTransferUrl">Url of the transfer report</label>
+                    <input [(ngModel)]="item.transfer.url" id="txtTransferUrl" class="form-control"
+                      placeholder="Url of the report" name="txtTransferUrl" />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtTransferHash">Hash of the transfer report</label>
+                    <input [(ngModel)]="item.transfer.hash" class="form-control" placeholder="Hash of the report"
+                      id="txtTransferHash" name="txtTransferHash" />
+                  </div>
+
+
+                  <button class="btn btn-danger" (click)="transfer(item)">
+                    Submit
+                  </button>
+                  <a class="link" (click)="item.transferActive = !item.transferActive">Cancel</a>
+                </form>
+              </div>
+            </div>
           </div>
           <div>
-            <h5>Reports</h5>
-            <ul class="reports">
+            <h5 (click)="item.report = !item.report" class="reports-title">Reports</h5>
+            <ul class="reports" *ngIf="item.report">
               <li *ngFor="let report of item.reports">
                 <div>
-                  <label>Report Url</label>
-                  {{report.url}}
+                  Report Url: <strong>{{report.url}}</strong>
                 </div>
                 <div>
-                  <label>Report Hash</label>
-                  {{report.hash}}
+                  Report Hash: <strong>{{report.hash}}</strong>
                 </div>
                 <div style="word-break: break-all">
-                  While transferring from
-                  {{report.from}} to {{report.to}}
+                  While transferring:
+                  <ul>
+                    <li>FROM: <strong>{{report.from}}</strong></li>
+                    <li>TO: <strong>{{report.to}}</strong></li>
+                  </ul>
                 </div>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="double-panel owner-card">
-          <div>
-            <label>
-              <strong>Owner</strong>
-            </label>
-            <h4>{{item.holder.id}} </h4>
-            <small>({{item.holder.msp}})</small>
-          </div>
-          <div>
-            <a class="btn btn-warning" (click)="item.transferActive = !item.transferActive  ">
-              Transfer
-            </a>
-            <form class="transfer" *ngIf="item.transferActive">
-              <div class="form-group">
-                <label for="txtTransferTo">Transfer to</label>
-                <select [(ngModel)]="item.transfer.to" class="form-control" name="txtTransferTo">
-                  <option selected disabled>Select the user to transfer</option>
-                  <option *ngFor="let user of users" value="{{user.id}}">
-                    {{user.id}} - {{user.name}} ({{user.msp}})
-                  </option>
-                </select>
-                <small class="form-text text-muted">
-                  You will lose ownership of the drug
-                </small>
-              </div>
-              <div class="form-group">
-                <label for="txtTransferUrl">Url of the transfer report</label>
-                <input [(ngModel)]="item.transfer.url" id="txtTransferUrl" class="form-control"
-                  placeholder="Url of the report" name="txtTransferUrl" />
-              </div>
-              <div class="form-group">
-                <label for="txtTransferHash">Hash of the transfer report</label>
-                <input [(ngModel)]="item.transfer.hash" class="form-control" placeholder="Hash of the report"
-                  id="txtTransferHash" name="txtTransferHash" />
-              </div>
-              <div class="form-group">
-                <label for="txtTransport">Transport</label>
-                <select [(ngModel)]="item.transfer.transportId" class="form-control" name="txtTransport">
-                  <option selected disabled>Select the transport</option>
-                  <option *ngFor="let transport of transports" value="{{transport.id}}">
-                    [{{transport.transportType === 1 ? 'Truck' : (transport.transportType === 2 ?  'Airplane' :  (transport.transportType === 3 ? 'Train' :(transport.transportType === 4 ? 'Freight' : transport.transportType) )) }}]
-                    {{transport.id}}
-                  </option>
-                </select>
-              </div>
-
-              <button class="btn btn-danger" (click)="transfer(item)">
-                Submit
-              </button>
-              <a class="link" (click)="item.transferActive = !item.transferActive">Cancel</a>
-            </form>
           </div>
         </div>
       </div>

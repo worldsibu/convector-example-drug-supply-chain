@@ -1,9 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { ParticipantService } from '../../services/participant.service';
-import { DrugService } from '../../services/drug.service';
-import { TransportService } from '../../services/transport.service';
+import { ServerIdentityService } from '../../services/serverIdentity';
+import { RootStore } from '../../store/root.store';
 
 @Component({
   selector: 'app-server-identity',
@@ -14,10 +12,12 @@ import { TransportService } from '../../services/transport.service';
 })
 
 export class ServerIdentityComponent implements OnInit {
-  constructor(
+  constructor(public store: RootStore,
+    private serverIdentity: ServerIdentityService,
     private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+    this.serverIdentity.load();
   }
 }

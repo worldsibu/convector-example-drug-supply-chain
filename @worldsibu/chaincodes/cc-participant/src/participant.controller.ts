@@ -6,17 +6,12 @@ import {
   Invokable,
   Param
 } from '@worldsibu/convector-core';
-import { BaseStorage } from '@worldsibu/convector-core';
+import { ChaincodeTx } from '@worldsibu/convector-core-chaincode';
 
 import { Participant } from './participant.model';
-import { ClientIdentity } from 'fabric-shim';
 
 @Controller('participant')
-export class ParticipantController extends ConvectorController {
-  get fullIdentity(): ClientIdentity {
-    const stub = (BaseStorage.current as any).stubHelper;
-    return new ClientIdentity(stub.getStub());
-  }
+export class ParticipantController extends ConvectorController<ChaincodeTx> {
 
   @Invokable()
   public async register(
@@ -28,11 +23,12 @@ export class ParticipantController extends ConvectorController {
     // Retrieve to see if exists
     const existing = await Participant.getOne(id);
 
+    console.log(`Registering ${id} ${name} ${this.tx.identity.getMSPID()} ${this.sender}`);
     if (!existing || !existing.id) {
       let participant = new Participant();
       participant.id = id;
       participant.name = name || id;
-      participant.msp = this.fullIdentity.getMSPID();
+      participant.msp = this.tx.identity.getMSPID();
       // Create a new identity
       participant.identities = [{
         fingerprint: this.sender,
@@ -74,7 +70,7 @@ export class ParticipantController extends ConvectorController {
     const currentIdentity = participant.activeIdentity();
     if (currentIdentity.fingerprint !== sender) {
       // tslint:disable-next-line:max-line-length
-      throw new Error(`Participant does not match identity making the transaction`);
+      throw new Error(`Participant ${id} does not match identity making the transaction ${sender}`);
     }
     return participant;
   }

@@ -36,12 +36,15 @@
     0% {
         background: #fff;
     }
+
     25% {
         background: #f9ffdb;
     }
+
     75% {
         background: #f9ffdb;
     }
+
     100% {
         background: #fff;
     }
@@ -87,6 +90,15 @@
     border-bottom: solid 1px #ddd;
 }
 
-.text-right{
-  text-align: right;
+.text-right {
+    text-align: right;
+}
+
+.drug-card {
+    border-top: 12px red solid;
+}
+
+.reports-title {
+    text-decoration: underline;
+    cursor: pointer;
 }

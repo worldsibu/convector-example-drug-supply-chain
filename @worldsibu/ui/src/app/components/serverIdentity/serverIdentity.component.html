@@ -1,3 +1,9 @@
-<div>
-  Server identity
+<div class="wrapper">
+  <div class="container">
+    <span class="animated flash" *ngIf="!store.serverIdentityStore.current">Loading server identity ...</span>
+    <span *ngIf="store.serverIdentityStore.current">
+      <strong>{{store.serverIdentityStore.current.name}}</strong> ({{store.serverIdentityStore.current.id}} -
+      {{store.serverIdentityStore.current.msp}})
+    </span>
+  </div>
 </div>

@@ -16,6 +16,8 @@ import { DrugService } from './services/drug.service';
 import { ParticipantComponent } from './components/participants/participants.component';
 import { TransportService } from './services/transport.service';
 import { ServerIdentityComponent } from './components/serverIdentity/serverIdentity.component';
+import { RootStore } from './store/root.store';
+import { ServerIdentityService } from './services/serverIdentity';
 
 @NgModule({
   declarations: [
@@ -32,13 +34,18 @@ import { ServerIdentityComponent } from './components/serverIdentity/serverIdent
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     AppRoutingModule
   ],
   providers: [
     ParticipantService,
     TransportService,
-    DrugService
+    DrugService,
+    ServerIdentityService,
+    RootStore
   ],
   bootstrap: [AppComponent]
 })

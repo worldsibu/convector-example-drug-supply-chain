@@ -4,7 +4,8 @@ import { Router, Request, Response } from 'express';
 import {
   ModelHelpers,
   InitDrugController,
-  userCert
+  userCert,
+  identity
 } from '../convectorUtils';
 import { InitServerIdentity } from '../convectorUtils/convectorControllers';
 
@@ -18,7 +19,7 @@ router.get('/users', async (req: Request, res: Response) => {
   try {
     res.send(await ModelHelpers.getAllParticipants());
   } catch (err) {
-    console.log(err);
+    console.log(JSON.stringify(err));
     res.status(500).send(err);
   }
 });
@@ -28,7 +29,7 @@ router.get('/', async (req: Request, res: Response) => {
   try {
     res.send((await ModelHelpers.getAllDrugs()).reverse());
   } catch (err) {
-    console.log(err);
+    console.log(JSON.stringify(err));
     res.status(500).send(err);
   }
 });
@@ -46,6 +47,7 @@ router.get('/:id/history', async (req: Request, res: Response) => {
     if (err.code === 'EDOCMISSING') {
       res.send([]);
     } else {
+      console.log(JSON.stringify(err));
       res.status(500).send(err);
     }
   }
@@ -64,8 +66,7 @@ router.post('/:id/transfer/', async (req: Request, res: Response) => {
     res.send(await ModelHelpers.formatDrug(await ModelHelpers.Drug.getOne(id)));
 
   } catch (err) {
-    console.log('err');
-    console.log(err);
+    console.log(JSON.stringify(err));
     res.status(500).send(err);
   }
 });
@@ -78,11 +79,11 @@ router.post('/', async (req: Request, res: Response) => {
 
   try {
     let cntrl = await InitDrugController();
-    await cntrl.create(id, name, userCert, Date.now());
+    await cntrl.create(id, name, identity, Date.now());
     // Return the newly created drug
     res.send(await ModelHelpers.formatDrug(await ModelHelpers.Drug.getOne(fId)));
   } catch (err) {
-    console.log(err);
+    console.log(JSON.stringify(err));
     res.status(500).send(err);
   }
 });
