@@ -23,10 +23,11 @@
   "homepage": "https://github.com/convector/convector-example-drug-supply-chain#readme",
   "scripts": {
     "wait": "sleep 5",
+    "seed": "./seed-data.sh",
     "user:fingerprint": "f () { node -e \"console.log(JSON.parse(require('fs').readFileSync('./.convector-dev-env/.hfc-$1/$2', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
     "================= Life cycle =================": "==================================",
     "install": "npm-run-all -s lerna:install",
-    "restart": "npm-run-all -s env:start cc:start cc:initialInvoke vw:install",
+    "start": "npm-run-all -s env:start cc:start cc:initialInvoke vw:install",
     "test": "npm-run-all -s lerna:test",
     "================= Lerna =================": "==================================",
     "lerna:install": "lerna bootstrap",
@@ -58,6 +59,6 @@
     "fabric-ca-client": "~1.1.2",
     "fabric-client": "~1.1.2",
     "@worldsibu/convector-platform-fabric": "~1.3.0",
-    "@worldsibu/hurley": "~1.0.0"
+    "@worldsibu/hurley": "~1.0.1"
   }
 }
