@@ -93,7 +93,7 @@ To have multiple users registered in the network you need to start the server wi
 
 ### What happens
 
-A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with 10010 port **therefore** the same front end will be used but it will call a different instance of the server source code.
+A new server will start but it will use a **different identity** to communicate with the blockchain network. Beware that the server always talks with `10010` port **therefore** the same front end will be used but it will call a different instance of the server source code.
 
 ### Run as other user
 
