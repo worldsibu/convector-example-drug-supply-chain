@@ -24,7 +24,7 @@
     "@worldsibu/convector-example-dsc-cc-drug": "^1.0.0",
     "@worldsibu/convector-example-dsc-cc-participant": "^1.0.0",
     "core-js": "^2.4.1",
-    "mobx": "^5.8.0",
+    "mobx": "5.14.2",
     "mobx-angular": "^3.0.1",
     "ngx-toastr": "^9.1.2",
     "rxjs": "^6.4.0",
